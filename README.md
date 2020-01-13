@@ -94,7 +94,7 @@ sudo ./nsm_install
 
 __Make sure you edit ```nsm.conf``` before running ```nsm_install```__
 
-The definition of nsm.conf is [here](/https://github.com/samiux/samiux.github.io/blob/master/nsmconf.md).
+The definition of nsm.conf is [here](https://github.com/samiux/samiux.github.io/blob/master/nsmconf.md).
 
 ##### 1.1.2 Host Based
 
@@ -118,7 +118,7 @@ sudo ./nsm_install
 
 __Make sure you edit ```nsm.conf``` before running ```nsm_install```__
 
-The definition of nsm.conf is [here](/https://github.com/samiux/samiux.github.io/blob/master/nsmconf-hidps.md).
+The definition of nsm.conf is [here](https://github.com/samiux/samiux.github.io/blob/master/nsmconf-hidps.md).
 
 #### 1.2 ChangeLog
 
