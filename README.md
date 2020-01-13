@@ -41,7 +41,7 @@ Croissants is an Open Source Project which is released under GPLv3 License and i
 
 Please keep in mind that Croissants is available FREE OF CHARGE.
 
-### Croissants is designed and developed by Samiux since 2012.
+__Croissants is designed and developed by Samiux since 2012.__
 
 ## MINIMUM REQUIREMENTS
 
