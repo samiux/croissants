@@ -122,7 +122,7 @@ The definition of nsm.conf is [here](https://github.com/samiux/samiux.github.io/
 
 #### 1.2 ChangeLog
 
-[Croissants ChangeLog](/changelog)
+[Croissants ChangeLog](https://github.com/samiux/samiux.github.io/blob/master/changelog.md)
 
 ### 2.0 User Guide
 
