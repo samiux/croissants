@@ -275,9 +275,9 @@ N/A
 
 ```sha256sum 814e353abfa899aede7c6173a3dfd78b9aab0242258748f1e35073a87ff13f47  presentation-croissants.pdf```
 
-Download : [presentation-croissants.pdf](/pdf/presentation-croissants.pdf)
+Download : [presentation-croissants.pdf](https://github.com/samiux/samiux.github.io/raw/master/pdf/presentation-croissants.pdf)
 
-<object data="/pdf/presentation-croissants.pdf" type="application/pdf" width="900px" height="700px">
-    <embed src="/pdf/presentation-croissants.pdf">
-        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="/pdf/presentation-croissants.pdf">Download PDF</a>.</p>
+<object data="https://github.com/samiux/samiux.github.io/raw/master/pdf/presentation-croissants.pdf" type="application/pdf" width="900px" height="700px">
+    <embed src="https://github.com/samiux/samiux.github.io/raw/master/pdf/presentation-croissants.pdf">
+        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="https://github.com/samiux/samiux.github.io/raw/master/pdf/presentation-croissants.pdf">Download PDF</a>.</p>
 </object>
