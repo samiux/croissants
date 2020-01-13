@@ -54,7 +54,7 @@ __Croissants is designed and developed by Samiux since 2012.__
 - 1 Network Interface Card/Port (Host Based only)  
 - CPU with AVX2 or better (at least SSSE3)  
 
-#### Remark : Intel ATOM D2550 CPU comes with SSSE3 and it can handles up to 300Mbps connection (home usage).
+__Remark : Intel ATOM D2550 CPU comes with SSSE3 and it can handles up to 300Mbps connection (home usage).__
 
 ### Software
 
