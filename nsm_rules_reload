@@ -1,0 +1,6 @@
+#!/bin/bash
+# Author   : Samiux (https://www.infosec-ninjas.com)
+# Date     : JUL 20, 2017
+# License  : GPLv3 (Open Source)
+
+sudo kill -USR2 $(pidof suricata)

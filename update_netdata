@@ -1,0 +1,28 @@
+#!/bin/bash
+# Author   : Samiux (https://www.infosec-ninjas.com)
+# Date     : May 16, 2019
+# License  : GPLv3 (Open Source)
+
+if [ -d /var/tmp/netdata ]
+then
+        cd /var/tmp/netdata
+        git pull | grep "Already up to date." &> /dev/null
+        if [ $? == 0 ]
+        then
+                echo "Already up to date!"
+        else
+                echo "Compiling netdata ..."
+                sudo ./netdata-installer.sh --dont-wait
+
+                sudo systemctl restart netdata
+        fi
+else
+        cd /var/tmp
+        git clone https://github.com/firehol/netdata.git
+        cd netdata
+
+        sudo ./netdata-installer.sh --dont-wait
+
+        sudo systemctl restart netdata
+fi
+

@@ -1,0 +1,56 @@
+#!/bin/bash
+# Author   : Samiux (https://www.infosec-ninjas.com)
+# Date     : JUL 20, 2017
+# License  : GPLv3 (Open Source)
+
+# load nsm.conf
+. /etc/croissants/conf.d/nsm.conf
+
+################# set nics #################
+sudo mv /etc/network/interfaces /etc/network/interfaces.croissants
+sudo touch /etc/network/interfaces
+
+sudo cat >>/etc/network/interfaces <<END
+auto lo
+iface lo inet loopback
+
+auto $INF_INCOMING
+iface $INF_INCOMING inet manual
+  #up ifconfig $INF_INCOMING 0.0.0.0 up
+  up ifconfig $INF_INCOMING -arp up
+  down ifconfig $INF_INCOMING down
+  pre-up ethtool -K $INF_INCOMING sg off gro off lro off tso off gso off ntuple off rxhash off rx off tx off
+  pre-up ethtool -C $INF_INCOMING rx-usecs 1
+  pre-up ethtool -G $INF_INCOMING rx 4096 tx 4096
+  post-up ethtool -K $INF_INCOMING sg off gro off lro off tso off gso off ntuple off rxhash off rx off tx off
+  post-up ethtool -C $INF_INCOMING rx-usecs 1
+  post-up ethtool -G $INF_INCOMING rx 4096 tx 4096
+
+auto $INF_OUTGOING
+iface $INF_OUTGOING inet manual
+  #up ifconfig $INF_OUTGOING 0.0.0.0 up
+  up ifconfig $INF_OUTGOING -arp up
+  down ifconfig $INF_OUTGOING down
+  pre-up ethtool -K $INF_OUTGOING sg off gro off lro off tso off gso off ntuple off rxhash off rx off tx off
+  pre-up ethtool -C $INF_OUTGOING rx-usecs 1
+  pre-up ethtool -G $INF_OUTGOING rx 4096 tx 4096
+  post-up ethtool -K $INF_OUTGOING sg off gro off lro off tso off gso off ntuple off rxhash off rx off tx off
+  post-up ethtool -C $INF_OUTGOING rx-usecs 1
+  post-up ethtool -G $INF_OUTGOING rx 4096 tx 4096
+
+auto $INF_MONITORING
+allow-hotplug $INF_MONITORING
+iface $INF_MONITORING inet static
+  address $INF_MONITORING_IP
+  netmask $INF_NETMASK
+  gateway $INF_GATEWAY
+  dns-nameservers $INF_NAMESERVER
+END
+
+#sudo /etc/init.d/networking restart
+echo "Restarting network interfaces ....."
+sudo dhclient -r $INF_MONITORING
+sudo ifconfig $INF_MONITORING $INF_MONITORING_IP netmask $INF_NETMASK
+sudo dhclient $INF_MONITORING
+
+sudo /etc/croissants/conf.d/non_intel_nic

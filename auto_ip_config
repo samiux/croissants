@@ -1,0 +1,34 @@
+#!/bin/bash
+# Author   : Samiux (https://www.infosec-ninjas.com)
+# Date     : JUL 20, 2017
+# License  : GPLv3 (Open Source)
+
+# get variables from nsm.conf
+. /etc/croissants/conf.d/nsm.conf
+
+# check the connectivity
+fping -c1 -t500 google.com 2>/dev/null 1>/dev/null
+
+if [ "$?" -eq 0 ]
+then
+	# can ping
+	# get the current external IP address
+	#CUR_EXT_IP=$(dig +short myip.opendns.com @resolver1.opendns.com)
+	CUR_EXT_IP=$(curl -s http://whatismijnip.nl |cut -d " " -f 5)
+	if [[ "$CUR_EXT_IP" != "" ]]; then
+		# main routine
+		# external ip doesn't match
+   		if [[ "$EXT_IP" != "$CUR_EXT_IP" ]]; then
+			echo $(date) " " "$EXT_IP" | sudo tee --append /etc/croissants/conf.d/old_ip.txt
+			sudo sed -i 's/EXT_IP=.*/EXT_IP=\"'$CUR_EXT_IP'\"/g' /etc/croissants/conf.d/nsm.conf
+			sudo /etc/croissants/conf.d/set_timezone
+			sudo /etc/croissants/conf.d/auto_nat_config
+			sudo /etc/croissants/conf.d/auto_config
+		fi
+	fi
+else
+	# cannot ping
+	sudo /etc/croissants/conf.d/reset_config
+	sudo /etc/croissants/conf.d/auto_nat_config
+	sudo /etc/croissants/conf.d/auto_network_config
+fi

@@ -1,0 +1,28 @@
+#!/bin/bash
+# Author   : Samiux (https://www.infosec-ninjas.com)
+# Date     : JUL 21, 2017
+# License  : GPLv3 (Open Source)
+
+# count number of Intel network interface
+ncount=$(lshw -c network | grep Intel | wc -l)
+
+# work only if more than 1 Intel network interface
+if [[ $ncount -lt 2 ]]
+then
+  # this script is for non-Intel network interfaces
+  # as those cards are not compatible for some ethtool commands
+  sudo sed -i "/rx-usecs/d" /etc/croissants/conf.d/auto_config
+  sudo sed -i "/rx-usecs/d" /etc/croissants/conf.d/auto_network_config
+  sudo sed -i "/rx-usecs/d" /etc/network/interfaces
+
+  sudo sed -i "/rx 4096/d" /etc/croissants/conf.d/auto_config
+  sudo sed -i "/rx 4096/d" /etc/croissants/conf.d/auto_network_config
+  sudo sed -i "/rx 4096/d" /etc/network/interfaces
+
+  sudo sed -i "/mtu 9000/d" /etc/network/flush-ip
+
+  echo "Restarting network interfaces ....."
+  sudo ifdown --exclude=lo -a && sudo ifup --exclude=lo -a
+  sudo /usr/bin/post-flush-ip
+fi
+

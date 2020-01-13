@@ -1,0 +1,36 @@
+#!/bin/bash
+#
+# Description : Ubuntu update script for Croissants
+#
+# Author      : Samiux
+# Website     : http://www.infosec-ninjas.com
+# Blog        : http://samiux.blogspot.com
+# Date        : Apr 21, 2019
+# Version     : 0.4
+# License     : GPLv3 (Open Source)
+
+# update ubuntu
+export DEBIAN_FRONTEND=noninteractive
+sudo apt update
+sudo apt -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" -o APT::Get::Assume-Yes="true" -y dist-upgrade
+sudo apt -y autoclean
+sudo apt -y --purge autoremove
+
+sudo -H pip3 install suricata-update --upgrade
+#sudo -H pip install pyyaml --upgrade
+sudo -H pip3 install pip --upgrade
+
+# check if reboot is required
+echo ""
+
+if [ -f /var/run/reboot-required ]
+then
+        echo "Ubuntu is updated.  Reboot is required!"
+else
+        echo "Ubuntu is updated!"
+fi
+
+echo ""
+
+# EOF
+
