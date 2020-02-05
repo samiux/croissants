@@ -2050,6 +2050,7 @@ sudo /etc/croissants/conf.d/non_intel_nic
 
 # restart suricata
 echo "Restarting Suricata ....."
+sudo systemctl daemon-reload
 #sudo systemctl stop suricata
 #sudo systemctl daemon-reload
 #sudo systemctl restart suricata
