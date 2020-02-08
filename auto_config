@@ -668,6 +668,7 @@ af-packet:
     rollover: yes
     # To use the ring feature of AF_PACKET, set 'use-mmap' to yes
     #use-mmap: yes
+    use-mmap: yes
     # Lock memory map to avoid it goes to swap. Be careful that over subscribing could lock
     # your system
     #mmap-locked: yes
@@ -733,6 +734,7 @@ af-packet:
     copy-mode: ips
     copy-iface: $INF_INCOMING
     buffer-size: 1497366528
+    use-mmap: yes
 
   # Put default values here. These will be used for an interface that is not
   # in the list above.

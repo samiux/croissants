@@ -977,6 +977,7 @@ af-packet:
     rollover: yes
     # To use the ring feature of AF_PACKET, set 'use-mmap' to yes
     #use-mmap: yes
+    use-mmap: yes
     # Lock memory map to avoid it goes to swap. Be careful that over subscribing could lock
     # your system
     #mmap-locked: yes
@@ -1042,6 +1043,7 @@ af-packet:
     copy-mode: ips
     copy-iface: $INF_INCOMING
     buffer-size: 1497366528
+    use-mmap: yes
 
   # Put default values here. These will be used for an interface that is not
   # in the list above.
@@ -2579,10 +2581,16 @@ sudo cat >>/etc/sysctl.d/60-croissants.conf <<END
 kernel.printk_ratelimit = 0
 
 # performance tuning
-kernel.sem = 250 32000 100 128
+#kernel.sem = 250 32000 100 128
+kernel.sem = 250 32000 100 1024
 kernel.shmall = 2097152
 kernel.shmmax = 2147483648
 kernel.shmmni = 4096
+# new added on 2020-02-07
+kernel.msgmni = 1024
+kernel.numa_balancing = 0
+kernel.sched_min_granularity_ns = 100000000
+kernel.sched_migration_cost_ns = 50000000
 # If you have more than 512MB RAM, use this setting unless comment it out
 fs.file-max = 262140
 # If you have 512MB RAM or less, uncomment this setting; otherwise, comment it out
@@ -2592,7 +2600,8 @@ vm.vfs_cache_pressure = 50
 vm.min_free_kbytes = 65536
 
 net.core.rmem_default = 33554432
-net.core.rmem_max = 67108864
+#net.core.rmem_max = 67108864
+net.core.rmem_max = 16777216
 net.core.wmem_default = 33554432
 net.core.wmem_max = 67108864
 net.ipv4.tcp_rmem = 65536 33554432 67108864
@@ -2609,7 +2618,9 @@ net.ipv4.tcp_tw_reuse = 1
 net.ipv4.tcp_tw_recycle = 1
 net.ipv4.tcp_syn_retries = 2
 net.ipv4.tcp_synack_retries = 2
-net.core.somaxconn = 32768
+#net.core.somaxconn = 32768
+net.core.somaxconn = 2048
+net.ipv4.tcp_sack = 0
 #net.core.netdev_max_backlog = 50000000
 net.core.rmem_default=33554432
 net.ipv4.tcp_max_syn_backlog = 65536
@@ -2710,9 +2721,12 @@ vm.drop_caches = 3
 
 # http://opensourceforu.com/2016/10/network-performance-monitoring/
 # Software interrupts (SoftIRQ timeout)
-net.core.netdev_max_backlog = 1000000
-net.core.netdev_budget = 5000000
-net.core.netdev_budget_usecs = 500000
+#net.core.netdev_max_backlog = 1000000
+net.core.netdev_max_backlog = 8192
+#net.core.netdev_budget = 5000000
+net.core.netdev_budget = 1200
+#net.core.netdev_budget_usecs = 500000
+net.core.netdev_budget_usecs = 600
 
 # dynamically adjust the TCP buffer size till the maximum value is attained
 net.ipv4.tcp_moderate_rcvbuf=1
