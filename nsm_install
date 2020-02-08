@@ -279,8 +279,8 @@ yes N | sudo dpkg -i *.deb
 
 ############ install suricata ####################
 #wget https://www.openinfosecfoundation.org/download/suricata-4.1.6.tar.gz
-tar -xvzf suricata-4.1.6.tar.gz
-mv suricata-4.1.6 suricata
+tar -xvzf suricata-5.0.1.tar.gz
+mv suricata-5.0.1 suricata
 cd suricata
 
 ./configure --prefix=/usr/ --sysconfdir=/etc/ --localstatedir=/var/ --enable-luajit \
@@ -316,7 +316,7 @@ sudo cat >> /etc/suricata/iprep_categories <<END
 END
 
 ################ suricata.yaml setup #####################
-sudo mv /etc/suricata/suricata.yaml /etc/suricata/suricata.yaml.original
+sudo mv /etc/suricata/suricata.yaml /etc/suricata/suricata.yaml.croissants
 sudo touch /etc/suricata/suricata.yaml
 sudo cat >> /etc/suricata/suricata.yaml <<END
 %YAML 1.1
