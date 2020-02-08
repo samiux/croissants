@@ -88,7 +88,7 @@ alert tcp $HOME_NET any -> any 22 (msg:"CROISSANTS not SSH but Port 22"; flow:es
 alert tcp $HOME_NET any -> any !22 (msg:"CROISSANTS SSH but not Port 22"; flow:established,to_server; app-layer-protocol:ssh; sid:1010043; rev:1;)
 
 # tls
-drop tcp $HOME_NET any -> any [443.853,7275,6697] (msg:"CROISSANTS Port 443 but not TLS"; flow:to_server; app-layer-protocol:!tls; sid:1010044; rev:4;)
+drop tcp $HOME_NET any -> any [443,853,7275,6697] (msg:"CROISSANTS Port 443 but not TLS"; flow:to_server; app-layer-protocol:!tls; sid:1010044; rev:5;)
 alert tcp $HOME_NET any -> any ![443,853,7275,6697] (msg:"CROISSANTS TLS but not Port 443/853/7275/6697"; flow:to_server; app-layer-protocol:tls; sid:1010045; rev:5;)
 
 # http
