@@ -3102,6 +3102,10 @@ sudo mv ~/update_netdata /usr/bin/
 sudo mv ~/non_intel_nic /etc/croissants/conf.d/
 sudo mv ~/check_drop /usr/bin/
 
+# move to /etc/suricata when 5.0.1 upgrade
+sudo mv ~/classification.config /etc/suricata
+sudo mv ~/reference.config /etc/suricata
+
 sudo chmod +x /etc/croissants/conf.d/non_intel_nic
 sudo chmod +x /usr/bin/update_ubuntu
 sudo chmod +x /usr/bin/update_netdata
