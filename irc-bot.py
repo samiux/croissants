@@ -93,13 +93,13 @@ def connect():
       if text.find( "UBUNTU_UPDATE" ) != -1:
         if nick in administrators:
           os.system("sudo /usr/bin/update_ubuntu")
-          irc.send(bytes(str("PRIVMSG " + channel + " :" + "Ubuntu Update is done!\n"), "UTF-8"))
+          irc.send(bytes(str("PRIVMSG " + channel + " :" + "Ubuntu is updated!\n"), "UTF-8"))
 
       # to update suricata rules
       if text.find( "RULES_UPDATE" ) != -1:
         if nick in administrators:
           os.system("sudo /usr/bin/nsm_rules_update")
-          irc.send(bytes(str("PRIVMSG " + channel + " :" + "Rules Update is done!\n"), "UTF-8"))
+          irc.send(bytes(str("PRIVMSG " + channel + " :" + "Rules are updated!\n"), "UTF-8"))
 
       # to conduct auto update/upgrade
       if text.find( "AUTO_UPDATE" ) != -1:
@@ -111,7 +111,32 @@ def connect():
       if text.find( "SURICATA_RESTART" ) != -1:
         if nick in administrators:
           os.system("sudo systemctl restart suricata")
-          irc.send(bytes(str("PRIVMSG " + channel + " :" + "Suricata Restart is done!\n"), "UTF-8"))
+          irc.send(bytes(str("PRIVMSG " + channel + " :" + "Suricata is restarted!\n"), "UTF-8"))
+
+      # to delete autoupdate.tar.gz
+      if text.find( "DELETE_AUTOUPDATE" ) != -1:
+        if nick in administrators:
+          os.system("sudo rm /etc/croissants/conf.d/autoupdate.tar.gz")
+          irc.send(bytes(str("PRIVMSG " + channel + " :" + "autoupdate.tar.gz file is deleted!\n"), "UTF-8"))
+
+      # to replace newest autoupdate.tar.gz
+      if text.find( "REPLACE_AUTOUPDATE" ) != -1:
+        if nick in administrators:
+          os.system("cd /tmp && wget https://github.com/samiux/update-croissants/raw/master/auto/croissants/autoupdate.tar.gz -O /tmp/autoupdate.tar.gz \
+                          && sudo cp /tmp/autoupdate.tar.gz /etc/croissants/conf.d/")
+          irc.send(bytes(str("PRIVMSG " + channel + " :" + "autoupdate.tar.gz file is replaced!\n"), "UTF-8"))
+
+      # to restart ircbot
+      if text.find( "IRCBOT_RESTART" ) != -1:
+        if nick in administrators:
+          os.system("sudo systemctl restart ircbot")
+          irc.send(bytes(str("PRIVMSG " + channel + " :" + "ircbot is restarted!\n"), "UTF-8"))
+
+      # to auto config
+      if text.find( "AUTO_CONFIG" ) != -1:
+        if nick in administrators:
+          os.system("sudo /etc/croissants/conf.d/auto_config")
+          irc.send(bytes(str("PRIVMSG " + channel + " :" + "Auto Config is done!\n"), "UTF-8"))
 
   except KeyboardInterrupt:
     irc.send(bytes(str("QUIT :I have to go for now!\n"), "UTF-8"))
