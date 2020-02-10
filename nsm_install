@@ -277,7 +277,7 @@ cd ~
 
 sudo add-apt-repository -y ppa:oisf/suricata-stable
 sudo apt update
-sudo apt install suricata suricata-dbg hyperscan4 libhtp2 python-yaml python3-yaml
+yes N | sudo apt install suricata suricata-dbg libhyperscan4 libhtp2 python-yaml python3-yaml
 
 yes N | sudo dpkg -i *.deb
 
