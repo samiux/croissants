@@ -2875,7 +2875,9 @@ sudo chmod +x ~/ids_to_ips
 sudo ~/ids_to_ips
 
 # update the rules
-sudo freshclam
+#sudo freshclam
+sudo systemctl stop clamav-freshclam
+sudo systemctl disable clamav-freshclam
 sudo nsm_blacklist_md5
 
 # set read permission to rules files
