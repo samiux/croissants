@@ -275,32 +275,36 @@ cd ~
 #wget http://launchpadlibrarian.net/380173180/libhyperscan5_5.0.0-3_amd64.deb
 #wget http://launchpadlibrarian.net/380173177/libhyperscan-dev_5.0.0-3_amd64.deb
 
+sudo add-apt-repository -y ppa:oisf/suricata-stable
+sudo apt update
+sudo apt install suricata suricata-dbg hyperscan4 libhtp2 python-yaml python3-yaml
+
 yes N | sudo dpkg -i *.deb
 
 ############ install suricata ####################
 #wget https://www.openinfosecfoundation.org/download/suricata-4.1.6.tar.gz
-tar -xvzf suricata-5.0.1.tar.gz
-mv suricata-5.0.1 suricata
-cd suricata
+#tar -xvzf suricata-5.0.1.tar.gz
+#mv suricata-5.0.1 suricata
+#cd suricata
 
-./configure --prefix=/usr/ --sysconfdir=/etc/ --localstatedir=/var/ --enable-luajit \
---enable-nfqueue --enable-pie --enable-gccprotect --enable-gccprofile \
---enable-hiredis --enable-geoip --with-libnss-libraries=/usr/lib --with-libnss-includes=/usr/include/nss/ \
---with-libhiredis-libraries=/usr/lib/x86_64-linux-gnu --with-libhiredis-includes=/usr/include/hiredis \
---with-libnspr-libraries=/usr/lib --with-libnspr-includes=/usr/include/nspr \
---with-libcap_ng-libraries=/usr/local/lib --with-libcap_ng-includes=/usr/local/include \
-CFLAGS="-ftrapv -fPIE -Wl,-z,relro,-z,now -g -D_FORTIFY_SOURCE=2 -O2 \
--fstack-protector-all --param=ssp-buffer-size=4 -Werror=format-security" \
-SECCFLAGS="-ftrapv -fPIE -Wl,-z,relro,-z,now -fstack-protector-all -D_FORTIFY_SOURCE=2 -O2 \
--Wformat -Wformat-security"
+#./configure --prefix=/usr/ --sysconfdir=/etc/ --localstatedir=/var/ --enable-luajit \
+#--enable-nfqueue --enable-pie --enable-gccprotect --enable-gccprofile \
+#--enable-hiredis --enable-geoip --with-libnss-libraries=/usr/lib --with-libnss-includes=/usr/include/nss/ \
+#--with-libhiredis-libraries=/usr/lib/x86_64-linux-gnu --with-libhiredis-includes=/usr/include/hiredis \
+#--with-libnspr-libraries=/usr/lib --with-libnspr-includes=/usr/include/nspr \
+#--with-libcap_ng-libraries=/usr/local/lib --with-libcap_ng-includes=/usr/local/include \
+#CFLAGS="-ftrapv -fPIE -Wl,-z,relro,-z,now -g -D_FORTIFY_SOURCE=2 -O2 \
+#-fstack-protector-all --param=ssp-buffer-size=4 -Werror=format-security" \
+#SECCFLAGS="-ftrapv -fPIE -Wl,-z,relro,-z,now -fstack-protector-all -D_FORTIFY_SOURCE=2 -O2 \
+#-Wformat -Wformat-security"
 
-make clean
-make
-sudo make install-full
-sudo ldconfig
+#make clean
+#make
+#sudo make install-full
+#sudo ldconfig
 
 # clean up
-sudo rm -R ~/suricata*
+#sudo rm -R ~/suricata*
 sudo rm -R ~/*.deb*
 
 ######################## iprep setup #################
