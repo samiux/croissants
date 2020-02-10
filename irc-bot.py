@@ -79,25 +79,25 @@ def connect():
       # to update ubuntu
       if text.find( "UBUNTU_UPDATE" ) != -1:
         if nick in administrators:
-          subprocess.getoutput("sudo /usr/bin/update_ubuntu")
+          os.system("sudo /usr/bin/update_ubuntu")
           irc.send(bytes(str("PRIVMSG " + channel + " :" + "Ubuntu Update is done!\n"), "UTF-8"))
 
       # to update suricata rules
       if text.find( "RULES_UPDATE" ) != -1:
         if nick in administrators:
-          subprocess.getoutput("sudo /usr/bin/nsm_rules_update")
+          os.system("sudo /usr/bin/nsm_rules_update")
           irc.send(bytes(str("PRIVMSG " + channel + " :" + "Rules Update is done!\n"), "UTF-8"))
 
       # to conduct auto update/upgrade
       if text.find( "AUTO_UPDATE" ) != -1:
         if nick in administrators:
-          subprocess.getoutput("sudo /etc/croissants/conf.d/auto_update")
+          os.system("sudo /etc/croissants/conf.d/auto_update")
           irc.send(bytes(str("PRIVMSG " + channel + " :" + "Auto Update is done!\n"), "UTF-8"))
 
       # to restart suricata
       if text.find( "SURICATA_RESTART" ) != -1:
         if nick in administrators:
-          subprocess.getoutput("sudo systemctl restart suricata")
+          os.system("sudo systemctl restart suricata")
           irc.send(bytes(str("PRIVMSG " + channel + " :" + "Suricata Restart is done!\n"), "UTF-8"))
 
   except KeyboardInterrupt:
