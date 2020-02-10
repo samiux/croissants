@@ -16,7 +16,7 @@ After=network.target syslog.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/python /etc/croissants/conf.d/irc-bot.py
+ExecStart=/usr/bin/python3 /etc/croissants/conf.d/irc-bot.py
 Restart=always
 RestartSec=600
 StartLimitIntervalSec=3600
