@@ -51,6 +51,10 @@ def connect():
   irc.send(bytes(str("NICK " + botnick + "\n"), "UTF-8"))
   irc.send(bytes(str("JOIN " + channel + "\n"), "UTF-8"))
 
+  # check connectivity
+  last_ping = time.time()
+  threshold = 5 * 60
+
   try:
     while True:
 
@@ -72,9 +76,18 @@ def connect():
         msg = subprocess.getoutput("sudo /usr/bin/suricata -V").strip('\n\r')
         irc.send(bytes(str("PRIVMSG " + channel + " :" + msg +"\n"), "UTF-8"))
 
+      # to say hello
+      if text.find( "HELLO" ) != -1:
+        irc.send(bytes(str("PRIVMSG " + channel + " :" + "Hello, I am here!\n"), "UTF-8"))
+
       # to ping and waiting for pong
       if text.find( "PING" ) != -1:
         irc.send(bytes(str("PONG " + text.split()[1] + "\n"), "UTF-8"))
+        last_ping = time.time()
+
+      # check if timeout
+      if (time.time() - last_ping) > threshold:
+        break
 
       # to update ubuntu
       if text.find( "UBUNTU_UPDATE" ) != -1:
