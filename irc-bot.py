@@ -73,12 +73,20 @@ def connect():
 
       # to check version number of suricata
       if text.find( "CHECK_VERSION" ) != -1:
-        msg = subprocess.getoutput("sudo /usr/bin/suricata -V").strip('\n\r')
-        irc.send(bytes(str("PRIVMSG " + channel + " :" + msg +"\n"), "UTF-8"))
+        if nick in administrators:
+          msg = subprocess.getoutput("sudo /usr/bin/suricata -V").strip('\n\r')
+          irc.send(bytes(str("PRIVMSG " + channel + " :" + msg +"\n"), "UTF-8"))
+
+      # to check if auto_update is execuated or not
+      if text.find( "CHECK_AUTOUPDATE" ) != -1:
+        if nick in administrators:
+          msg = subprocess.getoutput("ls -la /etc/croissants/conf.d/autoupdate.tar.gz").strip('\n\r')
+          irc.send(bytes(str("PRIVMSG " + channel + " :" + msg +"\n"), "UTF-8"))
 
       # to say hello
       if text.find( "HELLO" ) != -1:
-        irc.send(bytes(str("PRIVMSG " + channel + " :" + "Hello, I am here!\n"), "UTF-8"))
+        if nick in administrators:
+          irc.send(bytes(str("PRIVMSG " + channel + " :" + "Hello, I am here!\n"), "UTF-8"))
 
       # to ping and waiting for pong
       if text.find( "PING" ) != -1:
