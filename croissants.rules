@@ -269,7 +269,7 @@ drop http $EXTERNAL_NET any -> $HOME_NET any (msg:"CROISSANTS HTTP EVASION (inva
 
 # https://www.binarydefense.com/emotet-evolves-with-new-wi-fi-spreader/
 # sid:2221032-3
-drop http $HOME_NET any <> 87.106.37.146 8080 (msg: “BDS BACKDOOR Emotet Wi-Fi spreader likely”;content:”POST”;http_method;content:”/230238982BSBYKDDH938473938HDUI33/index.php”;http_uri;classtype:backdoor-activity;sid:2221032;rev:1;)
-drop http $HOME_NET any <> 45.79.223.161 443 (msg: “BDS BACKDOOR Emotet Wi-Fi spreader likely”;content:”POST”;http_method;content:”/09FGR20HEU738LDF007E848F715BVE.php”;http_uri;classtype:backdoor-activity;sid:2221033;rev:1;)
+drop http $HOME_NET any <> 87.106.37.146 8080 (msg: "BDS BACKDOOR Emotet Wi-Fi spreader likely";content:"POST";http_method;content:"/230238982BSBYKDDH938473938HDUI33/index.php";http_uri;classtype:backdoor-activity;sid:2221032;rev:1;)
+drop http $HOME_NET any <> 45.79.223.161 443 (msg: "BDS BACKDOOR Emotet Wi-Fi spreader likely";content:"POST";http_method;content:"/09FGR20HEU738LDF007E848F715BVE.php";http_uri;classtype:backdoor-activity;sid:2221033;rev:1;)
 
 # next sid 2221034
