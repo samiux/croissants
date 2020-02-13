@@ -267,4 +267,9 @@ drop http $EXTERNAL_NET any -> $HOME_NET any (msg:"CROISSANTS HTTP EVASION (inva
 # Request line started with whitespace
 #drop http any any -> any any (msg:"SURICATA HTTP Request line with leading whitespace"; flow:established,to_server; app-layer-event:http.request_line_leading_whitespace; flowint:http.anomaly.count,+,1; classtype:protocol-command-decode; sid:2221031; rev:1;)
 
-# next sid 2221032
+# https://www.binarydefense.com/emotet-evolves-with-new-wi-fi-spreader/
+# sid:2221032-3
+drop http $HOME_NET any <> 87.106.37.146 8080 (msg: “BDS BACKDOOR Emotet Wi-Fi spreader likely”;content:”POST”;http_method;content:”/230238982BSBYKDDH938473938HDUI33/index.php”;http_uri;classtype:backdoor-activity;sid:2221032;rev:1;)
+drop http $HOME_NET any <> 45.79.223.161 443 (msg: “BDS BACKDOOR Emotet Wi-Fi spreader likely”;content:”POST”;http_method;content:”/09FGR20HEU738LDF007E848F715BVE.php”;http_uri;classtype:backdoor-activity;sid:2221033;rev:1;)
+
+# next sid 2221034
