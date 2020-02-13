@@ -2338,7 +2338,6 @@ sudo cat >>/lib/systemd/system/suricata.service <<END
 Description=Suricata IDPS Daemon
 Wants=network.target syslog.target
 After=network.target syslog.target
-Restart=on-failure
 
 [Service]
 Type=forking
@@ -2839,28 +2838,28 @@ cd netdata
 sudo ./netdata-installer.sh --dont-wait
 
 ############### netdata.service ################
-#if [ -f /lib/systemd/system/netdata.service ]
-#then
-#	sudo rm /lib/systemd/system/netdata.service
-#fi
-#sudo touch /lib/systemd/system/netdata.service
-#sudo cat >> /lib/systemd/system/netdata.service <<END
-#[Unit]
-#Description=NetData - Real-Time Performance Monitoring Daemon
-#Wants=network.target syslog.target
-#After=network.target syslog.target
+if [ -f /lib/systemd/system/netdata.service ]
+then
+	sudo rm /lib/systemd/system/netdata.service
+fi
+sudo touch /lib/systemd/system/netdata.service
+sudo cat >> /lib/systemd/system/netdata.service <<END
+[Unit]
+Description=NetData - Real-Time Performance Monitoring Daemon
+Wants=network.target syslog.target
+After=network.target syslog.target
 
-#[Service]
-#PIDFile=/var/run/netdata.pid
-#Type=forking
-#ExecStartPre=echo 1 >/sys/kernel/mm/ksm/run
-#ExecStartPre=echo 1000 >/sys/kernel/mm/ksm/sleep_millisecs
-#ExecStart=/usr/sbin/netdata
-#Restart=on-failure
+[Service]
+PIDFile=/var/run/netdata.pid
+Type=forking
+ExecStartPre=echo 1 >/sys/kernel/mm/ksm/run
+ExecStartPre=echo 1000 >/sys/kernel/mm/ksm/sleep_millisecs
+ExecStart=/usr/sbin/netdata
+Restart=on-failure
 
-#[Install]
-#WantedBy=multi-user.target
-#END
+[Install]
+WantedBy=multi-user.target
+END
 
 sudo systemctl enable netdata.service
 
