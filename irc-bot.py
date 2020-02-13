@@ -83,6 +83,12 @@ def connect():
           msg = subprocess.getoutput("ls -la /etc/croissants/conf.d/autoupdate.tar.gz").strip('\n\r')
           irc.send(bytes(str("PRIVMSG " + channel + " :" + msg +"\n"), "UTF-8"))
 
+      # to check suricata.log
+      if text.find( "CHECK_SURICATA.LOG" ) != -1:
+        if nick in administrators:
+          msg = subprocess.getoutput("sudo tail -1 /var/log/suricata/suricata.log").strip('\n\r')
+          irc.send(bytes(str("PRIVMSG " + channel + " :" + msg +"\n"), "UTF-8"))
+
       # to say hello
       if text.find( "HELLO" ) != -1:
         if nick in administrators:
