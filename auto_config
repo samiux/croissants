@@ -2058,5 +2058,7 @@ sudo systemctl daemon-reload
 #sudo systemctl restart suricata
 sudo kill -USR2 $(pidof suricata)
 sudo chmod +r /var/log/suricata/eve.json
+# workaround to fix minor bug of suricata for memory leaking on every reload (-USR2)
+sudo sync; sudo sh -c 'echo 3 >/proc/sys/vm/drop_caches'
 echo
 echo "Auto configure done!"
