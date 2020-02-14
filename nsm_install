@@ -280,7 +280,7 @@ sudo apt update
 sudo apt -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" -o APT::Get::Assume-Yes="true" \
 -y install suricata suricata-dbg libhyperscan4 libhtp2 python-yaml python3-yaml
 
-yes N | sudo dpkg -i *.deb
+#yes N | sudo dpkg -i *.deb
 
 ############ install suricata ####################
 #wget https://www.openinfosecfoundation.org/download/suricata-4.1.6.tar.gz
