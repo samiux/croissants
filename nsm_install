@@ -2,16 +2,16 @@
 # Croissants - Intrusion Detection and Prevention System installation script (Network Based)
 #
 # Description : Croissants install script (Network Based)
-#               This script will install Suricata, idstools-rulecat, Hyperscan
+#               This script will install Suricata, Hyperscan
 #               and other required packages.
-#               It is designed for Ubuntu Server 18.04.1 LTS 64-bit only.  Other
+#               It is designed for Ubuntu Server 18.04.4 or 20.04 LTS 64-bit only.  Other
 #               Linux distributions MAY not be worked.
 #
 # Author      : Samiux
-# Website     : https://www.infosec-ninjas.com/croissants
+# Website     : https://samiux.github.io/croissants
 # Blog        : https://samiux.blogspot.com
-# Date        : Jan 13, 2019
-# Version     : 0.16
+# Date        : Feb 16, 2020
+# Version     : 0.17
 # License     : GPLv3 (Open Source)
 # Remarks     : This script is only for 16GB or more RAM system
 
@@ -39,7 +39,7 @@ echo "Croissants - Intrusion Detection and Prevention System (Network Based)"
 echo
 echo "This script will install Suricata, Hyperscan and other required packages."
 echo
-echo "This script is designed for Ubuntu 18.04.1 Server LTS 64-bit, Intel CPU with at least"
+echo "This script is designed for Ubuntu 18.04.4 or 20.04 Server LTS 64-bit, Intel CPU with at least"
 echo "AVX2 feature and 3 Intel network interface cards.  Other Linux distributions or Ubuntu"
 echo "version as well as non-Intel CPU and non-Intel network interfaces MAY not be worked."
 echo
@@ -69,20 +69,7 @@ sudo apt -y install net-tools
 
 sudo apt -y install git glances gdb
 sudo apt -y install linux-tools-common linux-tools-generic cpufrequtils thermald fping
-sudo apt -y install ifupdown2 python3-pip
-
-# for suricata-update
-sudo -H pip3 install pyyaml --upgrade
-sudo -H pip3 install suricata-update --upgrade
-
-
-############### lua package installation ##########
-# install lua related packages
-sudo apt -y install cmake lua-zip lua-zip-dev lua-zlib lua-zlib-dev \
-luarocks libzzip-dev libzzip-0-13 lua-apr lua-apr-dev lua-socket \
-lua-socket-dev lua-sec lua-sec-dev lua-rex-gnu lua-rex-gnu-dev \
-lua-rex-pcre lua-rex-pcre-dev lua-bitop lua-bitop-dev liblua5.1-0 \
-liblua5.1-0-dev libzip-dev build-essential libmaxminddb-dev
+sudo apt -y install ifupdown2 ethtool
 
 ################### Install and Configure of ClamAV ##################
 sudo apt update
@@ -233,80 +220,12 @@ END
 # make it executable
 sudo chmod +x /usr/bin/nsm_blacklist_md5
 
-##################### suricata and hyperscan installation and setting #############
-# install packages for suricata
-cd ~
-sudo apt install -y libpcre3 libpcre3-dbg libpcre3-dev autoconf \
-libtool libpcap-dev libnet1-dev libyaml-0-2 libyaml-dev zlib1g zlib1g-dev \
-libcap-ng-dev libcap-ng0 make libmagic-dev pkg-config libnss3-dev \
-libnspr4-dev libjansson-dev libjansson4 automake libgeoip-dev geoip-bin \
-ethtool libnetfilter-queue-dev libnetfilter-queue1 libnfnetlink-dev \
-libnfnetlink0 libnet1-dev libtcmalloc-minimal4 libhiredis-dev libevent-dev
-
 sudo apt -y install redis-server
 
-# install luajit
-cd ~
-sudo apt -y install libluajit-5.1-common libluajit-5.1-dev luajit
-
-############## hyperscan ####################
-sudo apt -y install cmake ragel doxygen sphinx-common libpcap0.8 libpcap0.8-dev libboost-dev
-sudo apt -y install sqlite3 libsqlite3-0 libsqlite3-dev
-sudo apt -y install libpthread-stubs0-dev libzthread-dev libzthread-2.3-2 libpthread-workqueue-dev libpthread-workqueue0
-sudo apt -y install libhiredis-dev libevent-dev
-sudo apt -y install cargo rustc
-sudo apt -y install liblz4-dev liblzma-dev
-# install cargo-vendor 0.1.22
-wget https://github.com/alexcrichton/cargo-vendor/releases/download/0.1.22/cargo-vendor-0.1.22-x86_64-unknown-linux-musl.tar.gz
-tar -xvzf cargo-vendor-0.1.22-x86_64-unknown-linux-musl.tar.gz
-sudo cp cargo-vendor-0.1.22-x86_64-unknown-linux-musl/cargo-vendor /usr/bin/
-sudo chmod +x /usr/bin/cargo-vendor
-
-######### install hyperscan #################
-cd ~
-
-# install all deb files at once
-#yes N | sudo dpkg -i *.deb
-
-### install hyperscan4
-#sudo apt -y install libhyperscan-dev libhyperscan4
-
-### install hyperscan5
-#wget http://launchpadlibrarian.net/380173180/libhyperscan5_5.0.0-3_amd64.deb
-#wget http://launchpadlibrarian.net/380173177/libhyperscan-dev_5.0.0-3_amd64.deb
-
+# install PPA suricata and its dependencies
 sudo add-apt-repository -y ppa:oisf/suricata-stable
 sudo apt update
-sudo apt -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" -o APT::Get::Assume-Yes="true" \
--y install suricata suricata-dbg libhyperscan4 libhtp2 python-yaml python3-yaml
-
-#yes N | sudo dpkg -i *.deb
-
-############ install suricata ####################
-#wget https://www.openinfosecfoundation.org/download/suricata-4.1.6.tar.gz
-#tar -xvzf suricata-5.0.1.tar.gz
-#mv suricata-5.0.1 suricata
-#cd suricata
-
-#./configure --prefix=/usr/ --sysconfdir=/etc/ --localstatedir=/var/ --enable-luajit \
-#--enable-nfqueue --enable-pie --enable-gccprotect --enable-gccprofile \
-#--enable-hiredis --enable-geoip --with-libnss-libraries=/usr/lib --with-libnss-includes=/usr/include/nss/ \
-#--with-libhiredis-libraries=/usr/lib/x86_64-linux-gnu --with-libhiredis-includes=/usr/include/hiredis \
-#--with-libnspr-libraries=/usr/lib --with-libnspr-includes=/usr/include/nspr \
-#--with-libcap_ng-libraries=/usr/local/lib --with-libcap_ng-includes=/usr/local/include \
-#CFLAGS="-ftrapv -fPIE -Wl,-z,relro,-z,now -g -D_FORTIFY_SOURCE=2 -O2 \
-#-fstack-protector-all --param=ssp-buffer-size=4 -Werror=format-security" \
-#SECCFLAGS="-ftrapv -fPIE -Wl,-z,relro,-z,now -fstack-protector-all -D_FORTIFY_SOURCE=2 -O2 \
-#-Wformat -Wformat-security"
-
-#make clean
-#make
-#sudo make install-full
-#sudo ldconfig
-
-# clean up
-#sudo rm -R ~/suricata*
-sudo rm -R ~/*.deb*
+sudo apt -y install suricata
 
 ######################## iprep setup #################
 sudo mkdir -p /etc/suricata/rules/iprep
@@ -2537,10 +2456,6 @@ sudo cat >>/etc/logrotate.d/suricata <<END
 }
 END
 
-# add osvdb to reference.config
-sudo sed -i "/osvdb\.org\/search\/advsearch/d" /etc/suricata/reference.config
-echo "config reference: osvdb     http://osvdb.org/search/advsearch" | sudo tee -a /etc/suricata/reference.config
-
 # create local.rules
 sudo mv /etc/suricata/rules/local.rules /etc/suricata/rules/local.rules-original
 sudo touch /etc/suricata/rules/local.rules
@@ -3078,7 +2993,7 @@ sudo rm nsm.conf
 sudo rm reset_config
 sudo rm auto_config
 sudo rm nsm_rules_update
-sudo rm nsm_rules_reload
+#sudo rm nsm_rules_reload
 sudo rm *croissants.rules
 sudo rm *_sample
 sudo rm *.tar.gz
@@ -3097,7 +3012,7 @@ sudo rm ~/rulecat.conf
 sudo rm ~/gmon.out
 sudo rm ~/malware*
 sudo rm irc-bot*
-sudo rm LICENSE.txt
+#sudo rm LICENSE.txt
 sudo rm *.rules
 sudo rm check_*
 sudo rm -R cargo*
@@ -3119,12 +3034,6 @@ sudo chmod +x /usr/bin/check_drop
 
 # check if at least 2 Intel network interfaces
 sudo /etc/croissants/conf.d/non_intel_nic
-
-# solve "Temporary failure in name resolution" as desktop version is enabled
-# apt policy netplan
-#sudo mv /etc/resolv.conf /etc/resolv.conf-original
-#sudo ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
-sudo systemctl restart systemd-resolved
 
 # disaable irqbalance for performance boost
 sudo systemctl stop irqbalance
