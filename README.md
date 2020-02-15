@@ -58,12 +58,14 @@ __Remark : Intel ATOM D2550 CPU comes with SSSE3 and it can handles up to 300Mbp
 
 ### Software
 
-- Ubuntu Server 18.04.x LTS (64-bit)
+- Ubuntu Server 18.04.4 LTS (64-bit)  
+- Ubuntu Server 20.04 LTS (64-bit)  
 
 ## MAIN COMPONENTS
 
-- Suricata 5.0.1  
-- Hyperscan 5.2.1  
+- Suricata 5.0.2  
+- Hyperscan 4.7.0 (Ubuntu 18.04.4)  
+- Hyperscan 5.2.1 (Ubuntu 20.04)    
 - netdata (Network Based only)  
 
 ## DOCUMENTATION
@@ -75,15 +77,19 @@ __Remark : Intel ATOM D2550 CPU comes with SSSE3 and it can handles up to 300Mbp
 ##### 1.1.1 Network Based
 
 ```bash
+sudo -sH
+
+cd /root
+
 sudo apt install git
 
 git clone https://github.com/samiux/croissants
 
 cd croissants
 
-cp * ~
+cp * /root
 
-cd ~/
+cd /root
 
 nano nsm.conf
 
@@ -99,15 +105,19 @@ The definition of nsm.conf is [here](https://github.com/samiux/samiux.github.io/
 ##### 1.1.2 Host Based
 
 ```bash
+sudo -sH
+
+cd /root
+
 sudo apt install git
 
 git clone https://github.com/samiux/croissants-hidps
 
 cd croissants-hidps
 
-cp * ~/
+cp * /root
 
-cd ~/
+cd /root
 
 nano nsm.conf
 
