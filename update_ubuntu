@@ -16,10 +16,6 @@ sudo apt -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confol
 sudo apt -y autoclean
 sudo apt -y --purge autoremove
 
-sudo -H pip3 install suricata-update --upgrade
-#sudo -H pip install pyyaml --upgrade
-sudo -H pip3 install pip --upgrade
-
 # check if reboot is required
 echo ""
 
