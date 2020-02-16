@@ -2292,6 +2292,7 @@ sudo /usr/bin/find /var/log/netdata -name "*.back" -mtime 3 -exec rm {} \;
 sudo /usr/bin/find /var/log/netdata -name "*.gz" -mtime 3 -exec rm {} \;
 sudo /usr/bin/find /var/log/ -name "*.gz" -mtime 3 -exec rm {} \;
 sudo rm /core.*
+sudo rm /core
 sudo rm /var/crash/*
 END
 
