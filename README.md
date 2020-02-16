@@ -81,7 +81,7 @@ sudo -sH
 
 cd /root
 
-sudo apt install git
+sudo apt install git net-tools
 
 git clone https://github.com/samiux/croissants
 
@@ -109,7 +109,7 @@ sudo -sH
 
 cd /root
 
-sudo apt install git
+sudo apt install git net-tools
 
 git clone https://github.com/samiux/croissants-hidps
 
