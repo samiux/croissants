@@ -2919,7 +2919,7 @@ echo "50 00 * * * /usr/bin/nsm_blacklist_md5" | sudo tee -a /tmp/mycron
 echo "#30 */8 * * * /usr/bin/nsm_rules_update" | sudo tee -a /tmp/mycron
 echo "30 01 * * * /usr/bin/nsm_rules_update" | sudo tee -a /tmp/mycron
 echo "30 06 * * * /etc/croissants/conf.d/auto_update" | sudo tee -a /tmp/mycron
-echo "00 23 * * * /usr/bin/nsm_cleanlogs" | sudo tee -a /tmp/mycron
+echo "00 11,23 * * * /usr/bin/nsm_cleanlogs" | sudo tee -a /tmp/mycron
 echo "*/5 * * * * /etc/network/flush-ip" | sudo tee -a /tmp/mycron
 echo "*/30 * * * * /etc/croissants/conf.d/auto_ip_config" | sudo tee -a /tmp/mycron
 echo "15 00,12 * * * /usr/bin/update_netdata" | sudo tee -a /tmp/mycron
