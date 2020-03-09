@@ -456,4 +456,7 @@ reject tcp any any -> any any (msg:"CROISSANTS-2 Malware - MD5 Hash"; flow:estab
 reject tcp $EXTERNAL_NET any -> $HOME_NET any (msg:"CROISSANTS-2 Malicious file - Various Malware SHA1 Hash"; flow:established; fileext:!"mkv"; filestore; filesha1:malware_sha1; classtype: suspicious-filename-detect; sid:1060377; rev:2;)
 reject tcp $EXTERNAL_NET any -> $HOME_NET any (msg:"CROISSANTS-2 Malicious file - Various Malware SHA256 Hash"; flow:established; fileext:!"mkv"; filestore; filesha256:malware_sha256; classtype: suspicious-filename-detect; sid:1060378; rev:2;)
 
-# next is 1060379
+# IP Reputation - Blacklisted Hosts
+drop ip $EXTERNAL_NET any <-> $HOME_NET any (msg:"CROISSANTS IP Reputation - Blacklisted Hosts"; iprep:any,blacklist,>,9; priority:1; sid:1060379; rev:1;)
+
+# next is 1060380
