@@ -665,7 +665,7 @@ af-packet:
     # full then kernel will send the packet on the next socket with room available. This option
     # can minimize packet drop and increase the treated bandwidth on single intensive flow.
     #rollover: yes
-    rollover: yes
+    #rollover: yes
     # To use the ring feature of AF_PACKET, set 'use-mmap' to yes
     #use-mmap: yes
     use-mmap: yes
@@ -728,7 +728,7 @@ af-packet:
     cluster-id: 98
     cluster-type: cluster_flow
     defrag: no
-    rolloever: yes
+    #rolloever: yes
     mmap-locked: yes
     use-emergency-flush: yes
     copy-mode: ips
@@ -743,7 +743,7 @@ af-packet:
     threads: auto
     #use-mmap: no
     #rollover: yes
-    rollover: yes
+    #rollover: yes
     #tpacket-v3: yes
 
 # Cross platform libpcap capture support
@@ -1980,7 +1980,7 @@ rule-files:
 ## - kerberos-events.rules       # available in suricata sources under rules dir
 # - emerging.rules
 # - suri-local.rules
- - croissants.rules
+# - croissants.rules
  - croissants2.rules
  - local.rules
  - sslblacklist_tls_cert.rules
