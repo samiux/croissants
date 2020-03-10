@@ -347,25 +347,6 @@ reject http $HOME_NET any -> $EXTERNAL_NET any (msg:"CROISSANTS-2 PhishTank BAD 
 
 # reserved 1060327 - 1060334
 
-########################################################
-# Copy from Suricata's dns-events.rules
-# Response (answer) we didn't see a Request for. Could be packet loss.
-#drop dns any any -> any any (msg:"SURICATA DNS Unsollicited response"; flow:to_client; app-layer-event:dns.unsollicited_response; sid:2240001; rev:1;)
-# Malformed data in request. Malformed means length fields are wrong, etc.
-#drop dns any any -> any any (msg:"SURICATA DNS malformed request data"; flow:to_client; app-layer-event:dns.malformed_data; sid:2240002; rev:1;)
-#drop dns any any -> any any (msg:"SURICATA DNS malformed response data"; flow:to_server; app-layer-event:dns.malformed_data; sid:2240003; rev:1;)
-# Response flag set on to_server packet
-#drop dns any any -> any any (msg:"SURICATA DNS Not a request"; flow:to_server; app-layer-event:dns.not_a_request; sid:2240004; rev:1;)
-# Response flag not set on to_client packet
-#drop dns any any -> any any (msg:"SURICATA DNS Not a response"; flow:to_client; app-layer-event:dns.not_a_response; sid:2240005; rev:1;)
-# Z flag (reserved) not 0
-#drop dns any any -> any any (msg:"SURICATA DNS Z flag set"; app-layer-event:dns.z_flag_set; sid:2240006; rev:1;)
-# Request Flood Detected
-#drop dns any any -> any any (msg:"SURICATA DNS request flood detected"; flow:to_server; app-layer-event:dns.flooded; sid:2240007; rev:1;)
-# Per-flow (state) memcap reached. Relates to the app-layer.protocols.dns.state-memcap setting.
-#drop dns any any -> any any (msg:"SURICATA DNS flow memcap reached"; flow:to_server; app-layer-event:dns.state_memcap_reached; sid:2240008; rev:2;)
-#######################################################
-
 # cryptXXX ransomware (now is Malware)
 # https://sentinelone.com/blogs/new-cryptxxx-variant-discovered/
 # https://sentinelone.com/blogs/sophisticated-new-packer-identified-in-cryptxxx-ransomware-sample/
@@ -470,4 +451,26 @@ reject tcp $EXTERNAL_NET any <> $HOME_NET any (msg:"CROISSANTS-2 Malicious file 
 reject tcp $EXTERNAL_NET any <> $HOME_NET any (msg:"CROISSANTS-2 Malicious file - Clamav MD5 Hash"; flow:established; fileext:"tar.gz"; filestore; filemd5:clamav_md5; classtype: suspicious-filename-detect; sid:1060386; rev:2;)
 reject tcp $EXTERNAL_NET any <> $HOME_NET any (msg:"CROISSANTS-2 Malicious file - Clamav MD5 Hash"; flow:established; fileext:"7z"; filestore; filemd5:clamav_md5; classtype: suspicious-filename-detect; sid:1060387; rev:2;)
 
-# next is 1060388
+# self-signed-cert
+reject tls $EXTERNAL_NET any <> $HOME_NET any (msg:"CROISSANTS-2 TLS Self Signed Certificate"; flow:established; lua:self-signed-cert.lua; tls.store; classtype:protocol-command-decode; sid:1060388; rev:2;)
+
+# not common traffic on common ports
+drop tcp $EXTERNAL_NET any -> $HOME_NET 22 (msg:"CROISSANTS-2 not SSH but Port 22"; flow:established,to_server; app-layer-protocol:!ssh; sid:1060389; rev:1;)
+drop tcp $HOME_NET any -> $EXTERNAL_NET 22 (msg:"CROISSANTS-2 not SSH but Port 22"; flow:established,to_server; app-layer-protocol:!ssh; sid:1060390; rev:1;)
+drop tcp $EXTERNAL_NET any -> $HOME_NET 80 (msg:"CROISSANTS-2 not http but Port 80"; flow:established,to_server; app-layer-protocol:!http; sid:1060391; rev:1;)
+drop tcp $HOME_NET any -> $EXTERNAL_NET 80 (msg:"CROISSANTS-2 not http but Port 80"; flow:established,to_server; app-layer-protocol:!http; sid:1060392; rev:1;)
+drop tcp $EXTERNAL_NET any -> $HOME_NET	443 (msg:"CROISSANTS-2 Port 443 but not TLS"; flow:to_server; app-layer-protocol:!tls; sid:1060393; rev:1;)
+drop tcp $HOME_NET any -> $EXTERNAL_NET	443 (msg:"CROISSANTS-2 Port 443 but not TLS"; flow:to_server; app-layer-protocol:!tls; sid:1060394; rev:1;)
+
+# Quantum Insert by NSA
+drop tcp any any -> any any (msg:"CROISSANTS Quantum Insert 302 and possible inject"; stream-event:reassembly_overlap_different_data; content:"302"; http_stat_code; classtype:protocol-command-decode; sid:1060395; rev:1;)
+
+# icmp (large and base64)
+# reference : https://www.notsosecure.com/2015/10/15/icmp-tunnels-a-case-study/
+drop icmp $EXTERNAL_NET any -> $HOME_NET any (msg:"CROISSANTS-2 ICMP Large ICMP Packet (Base64)"; dsize:>800; content:"="; pcre:"/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$/";  reference:url,www.notsosecure.com/2015/10/15/icmp-tunnels-a-case-study/; classtype:bad-unknown; sid:1060396; rev:1;)
+drop icmp $HOME_NET any -> $EXTERNAL_NET any (msg:"CROISSANTS ICMP Large ICMP Packet (Base64)"; dsize:>800; content:"="; pcre:"/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$/";  reference:url,www.notsosecure.com/2015/10/15/icmp-tunnels-a-case-study/; classtype:bad-unknown; sid:1060397; rev:1;)
+
+# disallow ping from internet
+drop tcp $EXTERNAL_NET any -> $HOME_NET any (msg:"CROISSANTS-2 ICMP PING"; dsize: 0; itype: 8; priority:1; classtype: network-scan; sid:1060398; rev:2;)
+
+# next is 1060399
