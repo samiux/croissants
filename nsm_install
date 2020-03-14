@@ -2928,6 +2928,10 @@ sudo systemctl disable irqbalance
 sudo systemctl stop apport
 sudo systemctl disable apport
 
+# solve "Temporary failure in name resolution" as desktop version is enabled
+# apt policy netplan
+sudo systemctl restart systemd-resolved
+
 # set date time to local
 #sudo dpkg-reconfigure tzdata
 sudo mv ~/set_timezone /usr/bin/
