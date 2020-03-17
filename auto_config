@@ -1901,11 +1901,11 @@ iface $INF_INCOMING inet manual
   up ifconfig $INF_INCOMING -arp up
   down ifconfig $INF_INCOMING down
   pre-up ethtool -K $INF_INCOMING sg off gro off lro off tso off gso off ntuple off rxhash off rx off tx off
-  pre-up ethtool -C $INF_INCOMING rx-usecs 1
-  pre-up ethtool -G $INF_INCOMING rx 4096 tx 4096
+  #pre-up ethtool -C $INF_INCOMING rx-usecs 1
+  #pre-up ethtool -G $INF_INCOMING rx 4096 tx 4096
   post-up ethtool -K $INF_INCOMING sg off gro off lro off tso off gso off ntuple off rxhash off rx off tx off
-  post-up ethtool -C $INF_INCOMING rx-usecs 1
-  post-up ethtool -G $INF_INCOMING rx 4096 tx 4096
+  #post-up ethtool -C $INF_INCOMING rx-usecs 1
+  #post-up ethtool -G $INF_INCOMING rx 4096 tx 4096
 
 auto $INF_OUTGOING
 iface $INF_OUTGOING inet manual
@@ -1913,11 +1913,11 @@ iface $INF_OUTGOING inet manual
   up ifconfig $INF_OUTGOING -arp up
   down ifconfig $INF_OUTGOING down
   pre-up ethtool -K $INF_OUTGOING sg off gro off lro off tso off gso off ntuple off rxhash off rx off tx off
-  pre-up ethtool -C $INF_OUTGOING rx-usecs 1
-  pre-up ethtool -G $INF_OUTGOING rx 4096 tx 4096
+  #pre-up ethtool -C $INF_OUTGOING rx-usecs 1
+  #pre-up ethtool -G $INF_OUTGOING rx 4096 tx 4096
   post-up ethtool -K $INF_OUTGOING sg off gro off lro off tso off gso off ntuple off rxhash off rx off tx off
-  post-up ethtool -C $INF_OUTGOING rx-usecs 1
-  post-up ethtool -G $INF_OUTGOING rx 4096 tx 4096
+  #post-up ethtool -C $INF_OUTGOING rx-usecs 1
+  #post-up ethtool -G $INF_OUTGOING rx 4096 tx 4096
 
 auto $INF_MONITORING
 allow-hotplug $INF_MONITORING
