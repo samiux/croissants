@@ -457,10 +457,10 @@ reject tls $EXTERNAL_NET any <> $HOME_NET any (msg:"CROISSANTS-2 TLS Self Signed
 # not common traffic on common ports
 drop tcp $EXTERNAL_NET any -> $HOME_NET 22 (msg:"CROISSANTS-2 not SSH but Port 22 (Home)"; flow:established,to_server; app-layer-protocol:!ssh; sid:1060389; rev:2;)
 drop tcp $HOME_NET any -> $EXTERNAL_NET 22 (msg:"CROISSANTS-2 not SSH but Port 22 (External)"; flow:established,to_server; app-layer-protocol:!ssh; sid:1060390; rev:2;)
-drop tcp $EXTERNAL_NET any -> $HOME_NET 80 (msg:"CROISSANTS-2 not http but Port 80 (Home)"; flow:established,to_server; app-layer-protocol:!http; sid:1060391; rev:2;)
-alert tcp $HOME_NET any -> $EXTERNAL_NET 80 (msg:"CROISSANTS-2 not http but Port 80 (External)"; flow:established,to_server; app-layer-protocol:!http; sid:1060392; rev:3;)
-drop tcp $EXTERNAL_NET any -> $HOME_NET 443 (msg:"CROISSANTS-2 not TLS but Port 443 (Home)"; flow:to_server; app-layer-protocol:!tls; sid:1060393; rev:2;)
-alert tcp $HOME_NET any -> $EXTERNAL_NET 443 (msg:"CROISSANTS-2 not TLS but Port 443 (External)"; flow:to_server; app-layer-protocol:!tls; sid:1060394; rev:3;)
+#drop tcp $EXTERNAL_NET any -> $HOME_NET 80 (msg:"CROISSANTS-2 not http but Port 80 (Home)"; flow:established,to_server; app-layer-protocol:!http; sid:1060391; rev:2;)
+#alert tcp $HOME_NET any -> $EXTERNAL_NET 80 (msg:"CROISSANTS-2 not http but Port 80 (External)"; flow:established,to_server; app-layer-protocol:!http; sid:1060392; rev:3;)
+#drop tcp $EXTERNAL_NET any -> $HOME_NET 443 (msg:"CROISSANTS-2 not TLS but Port 443 (Home)"; flow:to_server; app-layer-protocol:!tls; sid:1060393; rev:2;)
+#alert tcp $HOME_NET any -> $EXTERNAL_NET 443 (msg:"CROISSANTS-2 not TLS but Port 443 (External)"; flow:to_server; app-layer-protocol:!tls; sid:1060394; rev:3;)
 
 # Quantum Insert by NSA
 drop tcp any any -> any any (msg:"CROISSANTS Quantum Insert 302 and possible inject"; stream-event:reassembly_overlap_different_data; content:"302"; http_stat_code; classtype:protocol-command-decode; sid:1060395; rev:1;)
