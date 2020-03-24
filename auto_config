@@ -1867,7 +1867,7 @@ rule-files:
   - local.rules
   - sslblacklist_tls_cert.rules
   - sslipblacklist.rules
-  - ja3_fingerprints.rules
+#  - ja3_fingerprints.rules
 
 ##
 ## Auxiliary configuration files.
