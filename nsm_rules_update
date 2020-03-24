@@ -369,6 +369,7 @@ then
         # copy the extracted files to suricata folder
 	sudo sed -i -e 's/alert/reject/g' ja3_fingerprints.rules
         sudo sed -i 's/.*Adware/#&/' ja3_fingerprints.rules
+        sudo sed -i 's/.*CoinMiner/#&/' ja3_fingerprints.rules
         sudo cp ja3_fingerprints.rules /etc/suricata/rules/
         sudo cp ja3_fingerprints.rules /var/lib/suricata/rules
 fi
