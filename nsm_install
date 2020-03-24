@@ -849,10 +849,10 @@ af-packet:
     defrag: no
     # To use the ring feature of AF_PACKET, set 'use-mmap' to yes
     #use-mmap: yes
-    use-mmap: yes
+    #use-mmap: yes
     # Lock memory map to avoid it goes to swap. Be careful that over subscribing could lock
     # your system
-    mmap-locked: yes
+    #mmap-locked: yes
     # Use tpacket_v3 capture mode, only active if use-mmap is true
     # Don't use it in IPS or TAP mode as it causes severe latency
     #tpacket-v3: yes
@@ -910,7 +910,8 @@ af-packet:
     copy-mode: ips
     copy-iface: $INF_INCOMING
     buffer-size: 1497366528
-    use-mmap: yes
+    #use-mmap: yes
+    #mmap-locked: yes
 
   # Put default values here. These will be used for an interface that is not
   # in the list above.
@@ -1568,8 +1569,8 @@ flow-timeouts:
 #                               # is used in a rule.
 #
 stream:
-  #memcap: 64mb
-  memcap: 1gb
+  memcap: 64mb
+  #memcap: 1gb
   checksum-validation: yes      # reject wrong csums
   inline: auto                  # auto will use inline mode in IPS mode, yes or no set it statically
   reassembly:
@@ -1590,8 +1591,8 @@ stream:
 host:
   hash-size: 4096
   prealloc: 1000
-  #memcap: 32mb
-  memcap: 128mb
+  memcap: 32mb
+  #memcap: 128mb
 
 # IP Pair table:
 #
