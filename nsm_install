@@ -2526,12 +2526,9 @@ vm.drop_caches = 3
 
 # http://opensourceforu.com/2016/10/network-performance-monitoring/
 # Software interrupts (SoftIRQ timeout)
-#net.core.netdev_max_backlog = 1000000
-net.core.netdev_max_backlog = 8192
-#net.core.netdev_budget = 5000000
-net.core.netdev_budget = 1200
-#net.core.netdev_budget_usecs = 500000
-net.core.netdev_budget_usecs = 600
+net.core.netdev_max_backlog = 1000000
+net.core.netdev_budget = 5000000
+net.core.netdev_budget_usecs = 500000
 
 # dynamically adjust the TCP buffer size till the maximum value is attained
 net.ipv4.tcp_moderate_rcvbuf=1
@@ -2922,8 +2919,8 @@ sudo chmod +x /usr/bin/check_drop
 sudo /etc/croissants/conf.d/non_intel_nic
 
 # disaable irqbalance for performance boost
-sudo systemctl stop irqbalance
-sudo systemctl disable irqbalance
+#sudo systemctl stop irqbalance
+#sudo systemctl disable irqbalance
 
 # disable apport for avoiding high cpu loading and large hard disk spaces occupied
 sudo systemctl stop apport

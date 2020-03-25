@@ -95,4 +95,22 @@ re:ET\sTROJAN\sPossible\sWannaCry\sDNS\sLookup
 1:2100498
 # SURICATA IPv4 truncated packet
 1:2200003
-
+# SURICATA HTTP gzip decompression failed
+#1:2221001
+# suricata 5.0.1 rules loading error
+#1:2022547
+#1:2021977
+#
+# ET WEB_SPECIFIC_APPS
+#re:ET\sWEB_SPECIFIC_APPS
+# GPL WEB_SPECIFIC_APPS
+#re:GPL\sWEB_SPECIFIC_APPS
+# ET WORM
+#re:ET\sWORM
+# ET WEB_SERVER
+#re:ET\sWEB_SERVER
+# SSLBL: Malicious JA3 SSL-Client Fingerprint detected (Adware)
+1:906200038
+1:2028362
+1:2028371
+1:2027390
