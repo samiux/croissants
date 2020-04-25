@@ -49,7 +49,7 @@ vars:
     ENIP_SERVER: "\$HOME_NET"
 
   port-groups:
-    HTTP_PORTS: "80,443"
+    HTTP_PORTS: "[80,443]"
     SHELLCODE_PORTS: "!80"
     ORACLE_PORTS: 1521
     SSH_PORTS: 22
