@@ -54,7 +54,7 @@ drop http $EXTERNAL_NET any -> $HOME_NET any (msg:"CROISSANTS-2 BOT for JCE Vuln
 
 # bad user-agent and bad host
 # http://www.botreports.com/
-drop http $EXTERNAL_NET any -> $HOME_NET 80,443 (msg:"CROISSANTS-2 Null User-Agent"; content:!"User-Agent|3a 20|"; nocase; http_header; classtype:web-application-attack; priority:1; sid:1060047; rev:2;)
+drop http $EXTERNAL_NET any -> $HOME_NET [80,443] (msg:"CROISSANTS-2 Null User-Agent"; content:!"User-Agent|3a 20|"; nocase; http_header; classtype:web-application-attack; priority:1; sid:1060047; rev:2;)
 drop http $EXTERNAL_NET any -> $HOME_NET any (msg:"CROISSANTS-2 127.0.0.x HTTP Host Header"; content:"127.0.0"; nocase; http_header; classtype:web-application-attack; priority:1; sid:1060048; rev:1;)
 drop http $EXTERNAL_NET any -> $HOME_NET any (msg:"CROISSANTS-2 Localhost HTTP Host Header"; content:"localhost"; nocase; http_header; classtype:web-application-attack; priority:1; sid:1060049; rev:3;)
 drop http $EXTERNAL_NET any -> $HOME_NET any (msg:"CROISSANTS-2 AITCSRobot User-Agent"; content:"AITCSRobot"; nocase; http_user_agent; classtype:web-application-attack; priority:1; sid:1060050; rev:1;)
