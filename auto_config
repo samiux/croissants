@@ -510,7 +510,6 @@ outputs:
   # deprecated - file-store v1
   - file-store:
       #enabled: no
-      enabled: yes
       # further options documented at:
       # https://suricata.readthedocs.io/en/suricata-5.0.0/file-extraction/file-extraction.html#file-store-version-1
 
