@@ -1069,7 +1069,6 @@ runmode: $RUN_MODE
 # ippair   - Flow assigned to threads using addresses only.
 #
 #autofp-scheduler: hash
-autofp-scheduler: ippair
 
 # Preallocated size for packet. Default is 1514 which is the classical
 # size for pcap on ethernet. You should adjust this value to the highest
