@@ -114,3 +114,11 @@ re:ET\sPOLICY\sUnsupported\/Fake
 1:2013256
 # ET POLICY Windows 98 User-Agent Detected - Possible Malware or Non-Updated System
 1:2007695
+# the list
+re:ET\sADWARE_PUP
+re:ET\sATTACK_RESPONSE
+re:ET\sCHAT
+re:ET\sCOINMINER
+re:GPL\sEXPLOIT
+re:ET\sHUNTING
+re:ET\sPHISHING
