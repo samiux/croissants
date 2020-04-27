@@ -58,6 +58,7 @@ vars:
     FILE_DATA_PORTS: "[\$HTTP_PORTS,110,143]"
     FTP_PORTS: 21
     VXLAN_PORTS: 4789
+    TEREDO_PORTS: 3544
 
 ##
 ## Step 2: select outputs to enable
@@ -617,7 +618,7 @@ af-packet:
     defrag: no
     # To use the ring feature of AF_PACKET, set 'use-mmap' to yes
     #use-mmap: yes
-    #use-mmap: yes
+    use-mmap: yes
     # Lock memory map to avoid it goes to swap. Be careful that over subscribing could lock
     # your system
     #mmap-locked: yes
@@ -678,7 +679,7 @@ af-packet:
     copy-mode: ips
     copy-iface: $INF_INCOMING
     buffer-size: 1497366528
-    #use-mmap: yes
+    use-mmap: yes
     #mmap-locked: yes
 
   # Put default values here. These will be used for an interface that is not
@@ -829,14 +830,6 @@ app-layer:
     tftp:
       enabled: yes
     dns:
-      # memcaps. Globally and per flow/state.
-      #global-memcap: 16mb
-      #state-memcap: 512kb
-
-      # How many unreplied DNS requests are considered a flood.
-      # If the limit is reached, app-layer-event:dns.flooded; will match.
-      #request-flood: 500
-
       tcp:
         enabled: yes
         detection-ports:
@@ -1046,7 +1039,8 @@ asn1-max-frames: 256
 # to be 'unlimited'.
 
 coredump:
-  max-dump: unlimited
+  #max-dump: unlimited
+  max-dump: 0
 
 # If Suricata box is a router for the sniffed networks, set it to 'router'. If
 # it is a pure sniffing setup, set it to 'sniffer-only'.
@@ -1075,6 +1069,7 @@ runmode: $RUN_MODE
 # ippair   - Flow assigned to threads using addresses only.
 #
 #autofp-scheduler: hash
+autofp-scheduler: hash
 
 # Preallocated size for packet. Default is 1514 which is the classical
 # size for pcap on ethernet. You should adjust this value to the highest
@@ -1380,11 +1375,15 @@ decoder:
   # as it will sometimes detect non-teredo as teredo.
   teredo:
     enabled: true
+    # ports to look for Teredo. Max 4 ports. If no ports are given, or
+    # the value is set to 'any', Teredo detection runs on _all_ UDP packets.
+    ports: \$TEREDO_PORTS # syntax: '[3544, 1234]' or '3533' or 'any'.
+
   # VXLAN decoder is assigned to up to 4 UDP ports. By default only the
   # IANA assigned port 4789 is enabled.
   vxlan:
     enabled: true
-    ports: $VXLAN_PORTS # syntax: '8472, 4789'
+    ports: \$VXLAN_PORTS # syntax: '[8472, 4789]' or '4789'
 
 
 ##
@@ -1510,10 +1509,10 @@ threading:
           medium: [ "1-2" ]
           high: [ 3 ]
           default: "medium"
-    #- verdict-cpu-set:
-    #    cpu: [ 0 ]
-    #    prio:
-    #      default: "high"
+    - verdict-cpu-set:
+        cpu: [ 0 ]
+        prio:
+          default: "high"
   #
   # By default Suricata creates one "detect" thread per available CPU/CPU core.
   # This setting allows controlling this behaviour. A ratio setting of 2 will
