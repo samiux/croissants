@@ -473,4 +473,7 @@ drop icmp $HOME_NET any -> $EXTERNAL_NET any (msg:"CROISSANTS ICMP Large ICMP Pa
 # disallow ping from internet
 drop tcp $EXTERNAL_NET any -> $HOME_NET any (msg:"CROISSANTS-2 ICMP PING"; dsize: 0; itype: 8; priority:1; classtype: network-scan; sid:1060398; rev:2;)
 
-# next is 1060399
+# blocks advertising servers
+reject http any any -> any any (msg:"CROISSANTS-2 Advertising Server Url"; lua:adservers_urls.lua; flow:stateless; classtype:misc-activity; priority:1; sid:1060399; rev:1;)
+
+# next is 1060400

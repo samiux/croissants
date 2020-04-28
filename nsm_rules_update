@@ -374,6 +374,18 @@ then
         sudo cp ja3_fingerprints.rules /var/lib/suricata/rules
 fi
 
+# 
+# advertising servers list
+#
+wget https://raw.githubusercontent.com/anudeepND/blacklist/master/adservers.txt -O /tmp/adservers.txt
+if [ -s /tmp/adservers.txt ]
+then
+    sed -i '/^#/ d' adservers.txt
+    cut -d" " -f2 adservers.txt > adservers.url
+    sudo cp /tmp/adservers.url /etc/suricata/rules/
+    sudo cp /tmp/adservers.url /var/lib/suricata/rules/
+fi
+
 # cleaning up
 sudo rm -R stamus-luajit-scripts
 sudo rm /tmp/*.blf
