@@ -1568,9 +1568,12 @@ flow-timeouts:
 #
 stream:
   memcap: 64mb
-  #memcap: 1gb
   checksum-validation: yes      # reject wrong csums
   inline: auto                  # auto will use inline mode in IPS mode, yes or no set it statically
+  max-synack-queued: 1000
+  prealloc-sessions: 4k
+  async-oneside: true
+  bypass: no
   reassembly:
     memcap: 256mb
     depth: 1mb                  # reassemble 1mb into a stream
@@ -1578,9 +1581,13 @@ stream:
     toclient-chunk-size: 2560
     randomize-chunk-size: yes
     #randomize-chunk-range: 10
+    randomize-chunk-range: 20
     #raw: yes
+    raw: yes
     #segment-prealloc: 2048
+    segment-prealloc: 4096
     #check-overlap-different-data: true
+
 
 # Host table:
 #
