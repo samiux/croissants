@@ -477,6 +477,6 @@ drop tcp $EXTERNAL_NET any -> $HOME_NET any (msg:"CROISSANTS-2 ICMP PING"; dsize
 reject http any any -> any any (msg:"CROISSANTS-2 Advertising Server Url"; lua:adservers_urls.lua; flow:stateless; classtype:misc-activity; priority:1; sid:1060399; rev:1;)
 
 # drop traceroute traffic
-drop udp $EXTERNAL_NET any -> $HOME_NET [30000:] (msg:"CROISSANTS-2 Traceroute traffic"; flow:stateless; classtype:attempted-recon; priority:1; sid:1060400; rev:1;)
+drop udp $EXTERNAL_NET ![53,853] -> $HOME_NET [30000:] (msg:"CROISSANTS-2 Traceroute traffic"; flow:stateless; classtype:attempted-recon; priority:1; sid:1060400; rev:1;)
 
 # next is 1060401
