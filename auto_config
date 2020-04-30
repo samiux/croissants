@@ -460,7 +460,7 @@ outputs:
   - file-store:
       version: 2
       #enabled: no
-      enabled: yes
+      #enabled: yes
 
       # Set the directory for the filestore. If the path is not
       # absolute will be be relative to the default-log-dir.
@@ -1337,7 +1337,7 @@ stream:
   checksum-validation: yes      # reject wrong csums
   inline: auto                  # auto will use inline mode in IPS mode, yes or no set it statically
   max-synack-queued: 1000
-  prealloc-sessions: 4k
+  prealloc-sessions: 2048
   async-oneside: true
   bypass: no
   reassembly:
