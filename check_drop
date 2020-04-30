@@ -1,4 +1,9 @@
 # check the last 100 line of log to see if there is any drops detected.  if so, restart suricata
+
+# first delete all zombie processes
+ps -xaw -o state,ppid | grep Z | grep -v PID | awk '{ print $2 }' | xargs -r sudo kill -9
+
+# check drops
 sudo tail -100 /var/log/suricata/stats.log | grep drop 2>/dev/null 1>/dev/null
 if [ "$?" -ne 1 ]
 then
@@ -12,4 +17,3 @@ else
 #        dt=$(date '+%d/%m/%Y %H:%M:%S')
 #        echo "$dt" " No drop!" | sudo tee -a /var/log/suricata/drop_stats.log
 fi
-
