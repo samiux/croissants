@@ -471,7 +471,7 @@ drop icmp $EXTERNAL_NET any -> $HOME_NET any (msg:"CROISSANTS-2 ICMP Large ICMP 
 drop icmp $HOME_NET any -> $EXTERNAL_NET any (msg:"CROISSANTS-2 ICMP Large ICMP Packet (Base64) (External)"; dsize:>800; content:"="; pcre:"/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$/";  reference:url,www.notsosecure.com/2015/10/15/icmp-tunnels-a-case-study/; classtype:bad-unknown; sid:1060397; rev:3;)
 
 # disallow ping from internet
-drop icmp $EXTERNAL_NET any -> $HOME_NET any (msg:"CROISSANTS-2 ICMP PING"; dsize: 0; itype: 8; priority:1; classtype: network-scan; sid:1060398; rev:3;)
+drop icmp $EXTERNAL_NET any -> $HOME_NET any (msg:"CROISSANTS-2 ICMP PING"; itype: 8; priority:1; classtype: network-scan; sid:1060398; rev:4;)
 
 # blocks advertising servers
 reject http any any -> any any (msg:"CROISSANTS-2 Advertising Server Url"; lua:adservers_urls.lua; flow:stateless; classtype:misc-activity; priority:1; sid:1060399; rev:1;)
