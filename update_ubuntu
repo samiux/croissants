@@ -30,6 +30,11 @@ sudo apt -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confol
 sudo apt -y autoclean
 sudo apt -y --purge autoremove
 
+# update snap
+echo ""
+echo -e "${GREEN}Updating snap ...${RESET}"
+sudo snap refresh
+
 # update suricata-update
 echo ""
 echo -e "${GREEN}Updating suricata-update ...${RESET}"
