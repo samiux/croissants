@@ -163,20 +163,21 @@ then
 
 fi
 
+# cannot be downloaded anymore
 #
 # PhishTank.com Bad Urls
 #
-cd /tmp
-wget http://data.phishtank.com/data/online-valid.csv.bz2
-if [ -s /tmp/online-valid.csv.bz2 ]
-then
-	bzip2 -dk /tmp/online-valid.csv.bz2
-	sed '1d' /tmp/online-valid.csv | cut -d "," -f 2 | sed '/^"/d' | sort -u > /tmp/phishtank.url
-	sed -i -e '/http:\/\/www\.baidu\.com.*/d' /tmp/phishtank.url
-	sudo cp /tmp/phishtank.url /etc/suricata/rules/
-	# for suricata-update
-	sudo cp /etc/suricata/rules/phishtank.url /var/lib/suricata/rules/
-fi
+#cd /tmp
+#wget http://data.phishtank.com/data/online-valid.csv.bz2
+#if [ -s /tmp/online-valid.csv.bz2 ]
+#then
+#	bzip2 -dk /tmp/online-valid.csv.bz2
+#	sed '1d' /tmp/online-valid.csv | cut -d "," -f 2 | sed '/^"/d' | sort -u > /tmp/phishtank.url
+#	sed -i -e '/http:\/\/www\.baidu\.com.*/d' /tmp/phishtank.url
+#	sudo cp /tmp/phishtank.url /etc/suricata/rules/
+#	# for suricata-update
+#	sudo cp /etc/suricata/rules/phishtank.url /var/lib/suricata/rules/
+#fi
 
 #
 # cryptXXX ransomware
