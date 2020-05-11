@@ -1,12 +1,12 @@
 #!/bin/bash
-# Author   : Samiux (https://www.infosec-ninjas.com)
-# Date     : JUL 20, 2017
+# Author   : Samiux (https://samiux.github.io)
+# Date     : May 11, 2020
 # License  : GPLv3 (Open Source)
 
 cd /tmp
 git clone https://github.com/StamusNetworks/stamus-luajit-scripts.git
-sudo cp stamus-luajit-scripts/*.lua /etc/suricata/rules/
-sudo cp /etc/suricata/rules/*.lua /var/lib/suricata/rules/
+#sudo cp stamus-luajit-scripts/*.lua /etc/suricata/rules/
+sudo cp stamus-luajit-scripts/*.lua /var/lib/suricata/rules/
 
 # set up 3rd party rules
 # sslblacklist fingerprint
@@ -144,24 +144,24 @@ cd /tmp
 wget https://github.com/samiux/update-croissants/raw/master/rules/croissants2.rules -O /tmp/croissants2.rules
 if [ -s /tmp/croissants2.rules ]
 then
-	sudo cp /tmp/croissants2.rules /etc/suricata/rules/croissants2.rules
+	#sudo cp /tmp/croissants2.rules /etc/suricata/rules/croissants2.rules
 	# for suricata-update
-	sudo cp /etc/suricata/rules/croissants2.rules /var/lib/suricata/rules/
+	sudo cp /tmp/croissants2.rules /var/lib/suricata/rules/
 
 fi
 
 #
 # croissants.rules
 #
-cd /tmp
-wget https://github.com/samiux/update-croissants/raw/master/rules/croissants.rules -O /tmp/croissants.rules
-if [ -s /tmp/croissants.rules ]
-then
-	sudo cp /tmp/croissants.rules /etc/suricata/rules/croissants.rules
-	# for suricata-update
-	sudo cp /etc/suricata/rules/croissants.rules /var/lib/suricata/rules/
-
-fi
+#cd /tmp
+#wget https://github.com/samiux/update-croissants/raw/master/rules/croissants.rules -O /tmp/croissants.rules
+#if [ -s /tmp/croissants.rules ]
+#then
+#	#sudo cp /tmp/croissants.rules /etc/suricata/rules/croissants.rules
+#	# for suricata-update
+#	sudo cp /tmp/croissants.rules /var/lib/suricata/rules/
+#
+#fi
 
 # cannot be downloaded anymore
 #
@@ -186,9 +186,9 @@ cd /tmp
 wget https://github.com/samiux/update-croissants/raw/master/rules/cryptxxx_md5 -O /tmp/cryptxxx_md5
 if [ -s /tmp/cryptxxx_md5 ]
 then
-	sudo cp /tmp/cryptxxx_md5 /etc/suricata/rules/
+	#sudo cp /tmp/cryptxxx_md5 /etc/suricata/rules/
 	# for suricata-updaate
-	sudo cp /etc/suricata/rules/cryptxxx_md5 /var/lib/suricata/rules/
+	sudo cp /tmp/cryptxxx_md5 /var/lib/suricata/rules/
 fi
 
 cd /tmp
@@ -204,9 +204,9 @@ cd /tmp
 wget https://github.com/samiux/update-croissants/raw/master/rules/cryptxxx.url -O /tmp/cryptxxx.url
 if [ -s /tmp/cryptxxx.url ]
 then
-	sudo cp /tmp/cryptxxx.url /etc/suricata/rules/
+	#sudo cp /tmp/cryptxxx.url /etc/suricata/rules/
 	# for suricata-update
-	sudo cp /etc/suricata/rules/cryptxxx.url /var/lib/suricata/rules/
+	sudo cp /tmp/cryptxxx.url /var/lib/suricata/rules/
 fi
 
 #
@@ -228,9 +228,9 @@ cd /tmp
 wget https://github.com/samiux/update-croissants/raw/master/rules/xss_sqli_pattern.url -O xss_sqli_pattern.url
 if [ -s /tmp/xss_sqli_pattern.url ]
 then
-	sudo cp /tmp/xss_sqli_pattern.url /etc/suricata/rules/
+	#sudo cp /tmp/xss_sqli_pattern.url /etc/suricata/rules/
 	# for suricata-update
-	sudo cp /etc/suricata/rules/xss_sqli_pattern.url /var/lib/suricata/rules/
+	sudo cp /tmp/xss_sqli_pattern.url /var/lib/suricata/rules/
 fi
 
 #
@@ -253,16 +253,16 @@ cd /tmp
 wget http://ransomwaretracker.abuse.ch/downloads/RW_DOMBL.txt -O /tmp/RW_DOMBL.txt
 if [ -s /tmp/RW_DOMBL.txt ]
 then
-	grep -v "#" /tmp/RW_DOMBL.txt > /etc/suricata/rules/ransomwaretracker.url
+	grep -v "#" /tmp/RW_DOMBL.txt > /var/lib/suricata/rules/ransomwaretracker.url
 fi
 
 cd /tmp
 wget http://ransomwaretracker.abuse.ch/downloads/RW_URLBL.txt -O /tmp/RW_URLBL.txt
 if [ -s /tmp/RW_URLBL.txt ]
 then
-	grep -v "#" /tmp/RW_URLBL.txt >> /etc/suricata/rules/ransomwaretracker.url
+	grep -v "#" /tmp/RW_URLBL.txt >> /var/lib/suricata/rules/ransomwaretracker.url
 	# for suricata-update
-	sudo cp /etc/suricata/rules/ransomwaretracker.url /var/lib/suricata/rules/
+	#sudo cp /etc/suricata/rules/ransomwaretracker.url /var/lib/suricata/rules/
 fi
 
 cd /tmp
@@ -281,18 +281,18 @@ cd /tmp
 wget https://github.com/samiux/update-croissants/raw/master/rules/malware_sha1 -O /tmp/malware_sha1
 if [ -s /tmp/malware_sha1 ]
 then
-  sudo cp /tmp/malware_sha1 /etc/suricata/rules/
+  #sudo cp /tmp/malware_sha1 /etc/suricata/rules/
   # for suricata-update
-  sudo cp /etc/suricata/rules/malware_sha1 /var/lib/suricata/rules/
+  sudo cp /tmp/malware_sha1 /var/lib/suricata/rules/
 fi
 
 cd /tmp
 wget https://github.com/samiux/update-croissants/raw/master/rules/malware_sha256 -O /tmp/malware_sha256
 if [ -s /tmp/malware_sha256 ]
 then
-  sudo cp /tmp/malware_sha256 /etc/suricata/rules/
+  #sudo cp /tmp/malware_sha256 /etc/suricata/rules/
   # for suricata-update
-  sudo cp /etc/suricata/rules/malware_sha256 /var/lib/suricata/rules/
+  sudo cp /tmp/malware_sha256 /var/lib/suricata/rules/
 fi
 
 #
@@ -311,9 +311,9 @@ then
 	# delete SVN/Git Remote Code Execution throught malicious ssh:// url
 	# it causing trouble to openvas signauture update (geeenbone-scapdata-rsync)
 	sudo sed -i -e '/sid\: 10001756\;/d' /tmp/rules/pt-rules.rules
-	sudo cp /tmp/rules/pt-rules.rules /etc/suricata/rules/
+	#sudo cp /tmp/rules/pt-rules.rules /etc/suricata/rules/
 	# for suricata-update
-	sudo cp /etc/suricata/rules/pt-rules.rules /var/lib/suricata/rules/
+	sudo cp /tmp/rules/pt-rules.rules /var/lib/suricata/rules/
 fi
 
 #
@@ -343,7 +343,7 @@ then
         tar -xvzf sslblacklist_tls_cert.tar.gz
         # copy the extracted files to suricata folder
 	sudo sed -i -e 's/alert/reject/g' sslblacklist_tls_cert.rules
-        sudo cp sslblacklist_tls_cert.rules /etc/suricata/rules/
+        #sudo cp sslblacklist_tls_cert.rules /etc/suricata/rules/
         sudo cp sslblacklist_tls_cert.rules /var/lib/suricata/rules
 fi
 
@@ -356,7 +356,7 @@ then
         tar -xvzf sslipblacklist.tar.gz
         # copy the extracted files to suricata folder
 	sudo sed -i -e 's/alert/reject/g' sslipblacklist.rules
-        sudo cp sslipblacklist.rules /etc/suricata/rules/
+        #sudo cp sslipblacklist.rules /etc/suricata/rules/
         sudo cp sslipblacklist.rules /var/lib/suricata/rules
 fi
 
@@ -371,7 +371,7 @@ then
 	sudo sed -i -e 's/alert/reject/g' ja3_fingerprints.rules
         sudo sed -i 's/.*Adware/#&/' ja3_fingerprints.rules
         sudo sed -i 's/.*CoinMiner/#&/' ja3_fingerprints.rules
-        sudo cp ja3_fingerprints.rules /etc/suricata/rules/
+        #sudo cp ja3_fingerprints.rules /etc/suricata/rules/
         sudo cp ja3_fingerprints.rules /var/lib/suricata/rules
 fi
 
@@ -383,7 +383,7 @@ if [ -s /tmp/adservers.txt ]
 then
     sed -i '/^#/ d' adservers.txt
     cut -d" " -f2 adservers.txt > adservers.url
-    sudo cp /tmp/adservers.url /etc/suricata/rules/
+    #sudo cp /tmp/adservers.url /etc/suricata/rules/
     sudo cp /tmp/adservers.url /var/lib/suricata/rules/
 fi
 
@@ -405,12 +405,10 @@ sudo rm -R /tmp/rules/
 cd ~
 
 # loading rules
-#sudo idstools-rulecat @/etc/idstools/rulecat.conf
 #sudo suricata-update --reload-command='sudo kill -USR2 $(pidof suricata)'
 sudo suricata-update
 
 sudo kill -USR2 $(pidof suricata)
-#sudo rm /var/tmp/idstools-rulecat/*.tar.gz*
 
 # workaround to fix minor bug of suricata for memory leaking on every reload (-USR2)
 sudo sync; sudo sh -c 'echo 3 >/proc/sys/vm/drop_caches'
