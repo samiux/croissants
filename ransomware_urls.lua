@@ -33,7 +33,7 @@ function match(args)
 	end
 
 	-- open files
-  	local url_file = io.open("/etc/suricata/rules/ransomwaretracker.url", "r")
+  	local url_file = io.open("/var/lib/suricata/rules/ransomwaretracker.url", "r")
 	local access_file = io.open("/var/log/suricata/ransomware_urls.log", "a")
 
 	-- compare host name

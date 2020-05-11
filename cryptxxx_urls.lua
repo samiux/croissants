@@ -33,7 +33,7 @@ function match(args)
 	end
 
 	-- open files
-  	local url_file = io.open("/etc/suricata/rules/cryptxxx.url", "r")
+  	local url_file = io.open("/var/lib/suricata/rules/cryptxxx.url", "r")
 	local access_file = io.open("/var/log/suricata/cryptxxx_urls.log", "a")
 
 	-- compare host name

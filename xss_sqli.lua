@@ -33,7 +33,7 @@ function match(args)
 	end
 
 	-- open files
-  	local url_file = io.open("/etc/suricata/rules/xss_sqli_pattern.url", "r")
+  	local url_file = io.open("/var/lib/suricata/rules/xss_sqli_pattern.url", "r")
 	local access_file = io.open("/var/log/suricata/xss.log", "a")
 
 	-- compare host name
