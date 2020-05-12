@@ -2624,7 +2624,8 @@ END
 # Netdata installation
 ######################
 cd /root
-sudo apt -y install zlib1g-dev uuid-dev libmnl-dev gcc make git autoconf autogen automake pkg-config libuv1-dev libssl-dev
+sudo apt -y install zlib1g-dev uuid-dev libmnl-dev gcc make cmake git autoconf autogen automake \
+            pkg-config libuv1-dev libssl-dev
 sudo git clone https://github.com/firehol/netdata.git
 cd netdata
 sudo ./netdata-installer.sh --dont-wait
