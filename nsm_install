@@ -69,7 +69,7 @@ sudo apt -y autoremove
 ####################
 # essential packages
 ####################
-sudo apt -y install net-tools glances git ethtool python3-pip clamav ifupdown
+sudo apt -y install net-tools glances git ethtool python3-pip clamav ifupdown fail2ban
 sudo apt -y install linux-tools-common linux-tools-generic cpufrequtils thermald fping
 
 ################################
