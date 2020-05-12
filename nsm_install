@@ -2928,6 +2928,9 @@ sudo rm /root/ids_to_ips
 sudo rm /root/irc-bot_install
 sudo rm /root/*.tar.gz
 sudo rm /root/croissants.rules
+sudo rm -R /root/netdata
+sudo rm -R /root/croissants
+sudo rm /root/*.config
 
 # the end
 echo " "
