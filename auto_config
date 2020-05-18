@@ -460,7 +460,7 @@ outputs:
   - file-store:
       version: 2
       #enabled: no
-      #enabled: yes
+      enabled: yes
 
       # Set the directory for the filestore. If the path is not
       # absolute will be be relative to the default-log-dir.
