@@ -474,7 +474,7 @@ drop icmp $HOME_NET any -> $EXTERNAL_NET any (msg:"CROISSANTS-2 ICMP Large ICMP 
 drop icmp $EXTERNAL_NET any -> $HOME_NET any (msg:"CROISSANTS-2 ICMP PING"; itype: 8; priority:1; classtype: network-scan; sid:1060398; rev:4;)
 
 # blocks advertising servers
-reject http any any -> any any (msg:"CROISSANTS-2 Advertising Server Url"; lua:adservers_urls.lua; flow:stateless; classtype:misc-activity; priority:1; sid:1060399; rev:1;)
+#reject http any any -> any any (msg:"CROISSANTS-2 Advertising Server Url"; lua:adservers_urls.lua; flow:stateless; classtype:misc-activity; priority:1; sid:1060399; rev:1;)
 
 # Potential Ports Scan
 drop tcp $EXTERNAL_NET any -> $HOME_NET any (msg:"CROISSANTS-2 SCAN Potential Ports Scan)"; flow:to_server; flags:S,12; window: 1024; priority:1; classtype:attempted-recon; sid:1060400; rev:1;)
