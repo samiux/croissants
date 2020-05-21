@@ -16,7 +16,7 @@ then
                 echo "Already up to date!"
         else
                 echo "Compiling netdata ..."
-                sudo ./netdata-installer.sh --dont-wait --enable-ebpf
+                sudo ./netdata-installer.sh --dont-wait
 
                 #sudo systemctl restart netdata
         fi
@@ -25,7 +25,7 @@ else
         sudo git clone https://github.com/firehol/netdata.git
         cd netdata
 
-        sudo ./netdata-installer.sh --dont-wait --enable-ebpf
+        sudo ./netdata-installer.sh --dont-wait
 
         #sudo systemctl restart netdata
 fi
