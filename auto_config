@@ -631,6 +631,7 @@ af-packet:
     # intensive single-flow you could want to set the ring-size independently of the number
     # of threads:
     #ring-size: 2048
+    ring-size: $RING_SIZE    
     # Block size is used by tpacket_v3 only. It should set to a value high enough to contain
     # a decent number of packets. Size is in bytes so please consider your MTU. It should be
     # a power of 2 and it must be multiple of page size (usually 4096).
@@ -680,6 +681,7 @@ af-packet:
     copy-iface: $INF_INCOMING
     buffer-size: 1497366528
     use-mmap: yes
+    ring-size: $RING_SIZE
     #mmap-locked: yes
 
   # Put default values here. These will be used for an interface that is not
@@ -1418,8 +1420,10 @@ detect:
   #profile: medium
   profile: $DETECT_PROFILE
   custom-values:
-    toclient-groups: 3
-    toserver-groups: 25
+    #toclient-groups: 3
+    toclient-groups: $CUSTOM_VALUE
+    #toserver-groups: 25
+    toserver-groups: $CUSTOM_VALUE
   sgh-mpm-context: auto
   inspection-recursion-limit: 3000
   # If set to yes, the loading of signatures will be made after the capture
