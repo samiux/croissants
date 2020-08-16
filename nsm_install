@@ -1109,10 +1109,8 @@ app-layer:
 
            # Can be specified in kb, mb, gb.  Just a number indicates
            # it's in bytes.
-           #request-body-limit: 100kb
-           request-body-limit: 0
-           #response-body-limit: 100kb
-           response-body-limit: 0
+           request-body-limit: 100kb
+           response-body-limit: 100kb
 
            # inspection limits
            request-body-minimal-inspect-size: 32kb
@@ -1774,7 +1772,7 @@ threading:
 # script.
 luajit:
   #states: 128
-  states: 2048
+  states: 1024
 
 # Profiling settings. Only effective if Suricata has been built with the
 # the --enable-profiling configure flag.
