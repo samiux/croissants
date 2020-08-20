@@ -1772,7 +1772,7 @@ threading:
 # script.
 luajit:
   #states: 128
-  states: 1024
+  states: 2048
 
 # Profiling settings. Only effective if Suricata has been built with the
 # the --enable-profiling configure flag.
