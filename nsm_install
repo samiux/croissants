@@ -1109,8 +1109,10 @@ app-layer:
 
            # Can be specified in kb, mb, gb.  Just a number indicates
            # it's in bytes.
-           request-body-limit: 100kb
-           response-body-limit: 100kb
+           #request-body-limit: 100kb
+           request-body-limit: 0
+           #response-body-limit: 100kb
+           response-body-limit: 0
 
            # inspection limits
            request-body-minimal-inspect-size: 32kb
