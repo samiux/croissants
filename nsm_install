@@ -1609,12 +1609,9 @@ stream:
 # Host table is used by tagging and per host thresholding subsystems.
 #
 host:
-  #hash-size: 4096
-  hash-size: 8192
-  #prealloc: 1000
-  prealloc: 10000
-  #memcap: 32mb
-  memcap: 128mb
+  hash-size: 4096
+  prealloc: 1000
+  memcap: 32mb
 
 # IP Pair table:
 #
