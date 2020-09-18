@@ -1173,7 +1173,8 @@ defrag:
   trackers: 65535 # number of defragmented flows to follow
   max-frags: 65535 # number of fragments to keep (higher than trackers)
   prealloc: yes
-  timeout: 60
+  #timeout: 60
+  timeout: 10
 
 # Enable defrag per host settings
 #  host-config:
@@ -1352,8 +1353,7 @@ stream:
   reassembly:
     #memcap: 256mb
     memcap: 10240mb
-    #depth: 1mb                  # reassemble 1mb into a stream
-    depth: 4mb                  # reassemble 1mb into a stream
+    depth: 1mb                  # reassemble 1mb into a stream
     toserver-chunk-size: 2560
     toclient-chunk-size: 2560
     randomize-chunk-size: yes
