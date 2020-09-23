@@ -1450,10 +1450,10 @@ defrag:
 
 flow:
   #memcap: 128mb
-  memcap: 512mb
+  memcap: 81920mb
   hash-size: 65536
   #prealloc: 10000
-  prealloc: 100000
+  prealloc: 10000000
   emergency-recovery: 30
   #managers: 1 # default to one flow manager
   #recyclers: 1 # default to one flow recycler thread
@@ -1579,19 +1579,19 @@ flow-timeouts:
 #
 stream:
   #memcap: 64mb
-  memcap: 512mb
+  memcap: 10240mb
   checksum-validation: yes      # reject wrong csums
   inline: auto                  # auto will use inline mode in IPS mode, yes or no set it statically
   #max-synack-queued: 1000
-  max-synack-queued: 100000
+  max-synack-queued: 1000000
   #prealloc-sessions: 2048
   prealloc-sessions: 4096
   async-oneside: false
   bypass: no
   reassembly:
     #memcap: 256mb
-    memcap: 10240mb
-    depth: 1mb                  # reassemble 1mb into a stream
+    memcap: 40960mb
+    depth: 4mb                  # reassemble 1mb into a stream
     toserver-chunk-size: 2560
     toclient-chunk-size: 2560
     randomize-chunk-size: yes
