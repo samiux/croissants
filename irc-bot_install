@@ -1,0 +1,32 @@
+############ install irc-bot.py ############
+sudo cp ~/irc-bot.py /etc/croissants/conf.d/
+sudo chmod +x /etc/croissants/conf.d/irc-bot.py
+
+############# create irc-bot systemd file #############
+if [ -f /lib/systemd/system/ircbot.service ]
+then
+	sudo rm /lib/systemd/system/ircbot.service
+fi
+sudo touch /lib/systemd/system/ircbot.service
+sudo cat >> /lib/systemd/system/ircbot.service <<END
+[Unit]
+Description=IRC Bot Daemon
+Wants=network.target syslog.target
+After=network.target syslog.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /etc/croissants/conf.d/irc-bot.py
+Restart=always
+RestartSec=600
+StartLimitIntervalSec=3600
+StartLimitBurst=6
+
+[Install]
+WantedBy=multi-user.target
+END
+
+############ systemd file enable/start ##############
+sudo systemctl daemon-reload
+sudo systemctl enable ircbot
+sudo systemctl restart ircbot

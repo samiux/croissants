@@ -1,0 +1,116 @@
+### Sample disable.conf ###
+# TROJAN 1.1.1.1
+1:2017000
+# DELETED
+re:ET\sDELETED
+# MOBILE_MALWARE Google Android Device HTTP Request
+1:2012251
+# MALWARE WhenUClick.com Weather App Checkin (2)
+1:2000915
+# SURICATA STREAM alerts
+#re:SURICATA\sSTREAM
+# SURICATA STREAM
+#1:2210000-1:2210049
+#1:2210051-1:2210057
+# SURICATA STREAM alert when downloading
+1:2210021
+1:2210020
+1:2210029
+1:2210045
+1:2200074
+1:2210038
+1:2210044
+# ET CURRENT_EVENTS Possible Dynamic DNS Exploit Pack
+1:2014445
+# ET WEB_SERVER WebShell
+1:2016683
+1:2016992
+# ET TROJAN Possible Downadup/Conficker-C P2P encrypted traffic UDP Ping Packet (bit value 5)
+1:2009207
+1:2009205
+1:2009208
+# ET TROJAN UPX compressed file download possible malware
+1:2001046
+# ET TROJAN VMProtect Packed Binary Inbound via HTTP
+1:2009080
+# SURICATA STREAM SHUTDOWN RST invalid ack
+1:2210046
+# ET POLICY Python-urllib/ Suspicious User Agent
+1:2013031
+# ET POLICY GNU/Linux APT User-Agent Outbound likely related to package management
+1:2013504
+# ET TOR Known Tor Relay/Router (Not Exit) Node Traffic group 296
+#1:2522590
+# ET TOR Known Tor Relay/Router (Not Exit) Node Traffic group
+re:ET\sTOR\sKnown\sTor\sRelay\/Router\s\(Not\sExit\)\sNode\sTraffic\sgroup
+# P2P BitTorrent
+1:2010144
+1:2008581
+1:2000334
+1:2008583
+1:2102181
+# ET EXPLOIT Windows Media Player parsing BMP file with 0 size offset to start of image
+1:2002802
+# ET WEB_CLIENT Possible String.FromCharCode Javascript Obfu
+1:2011347
+# ET USER_AGENTS Suspicious Mozilla User-Agent Likely Fake (Mozilla/5.0)
+#1:2009295
+# ET MOBILE_MALWARE Possible Mobile Malware POST of IMEI International Mobile Equipment
+#1:2012848
+# ET MALWARE Blank User-Agent (descriptor but no string)
+1:2008066
+# ET MALWARE Suspicious User-Agent (1 space)
+1:2007994
+# SURICATA ICMPv6 unknown type
+1:2200029
+# ET TROJAN DNS Query for Possible FakeAV Domain
+1:2012786
+# SURICATA UDPv6 invalid checksum
+1:2200078
+# SURICATA ICMPv6 invalid checksum
+1:2200079
+# ET TROJAN Possible Downadup/Conficker-C P2P encrypted traffic UDP Ping Packet (bit value 4)
+1:2009206
+# ET POLICY PE EXE or DLL Windows file download
+1:2000419
+# ET POLICY PE EXE or DLL Windows file download HTTP
+#1:2018959
+# causing Windows ISO download timeout
+1:2012520
+1:2017919
+1:2010500
+1:2017005
+# ET P2P Bittorrent P2P Client User-Agent (Transmission/1.x)
+1:2011699
+# ET MALWARE Suspicious Chinese Content-Language zh-cn Which May be Malware Related
+1:2012229
+# ET TROJAN Suspicious Accept-Language HTTP Header, zh-cn, likely Kernelbot/Conficker Trojan Related
+1:2008738
+# ET POLICY Outgoing Basic Auth Base64 HTTP Password detected unencrypted
+1:2006380
+re:SURICATA\sHTTP
+# ET TROJAN Possible WannaCry DNS Lookup
+re:ET\sTROJAN\sPossible\sWannaCry\sDNS\sLookup
+# GPL ATTACK_RESPONSE id check returned root
+1:2100498
+# SURICATA IPv4 truncated packet
+1:2200003
+# SURICATA HTTP gzip decompression failed
+#1:2221001
+# suricata 5.0.1 rules loading error
+#1:2022547
+#1:2021977
+#
+# ET WEB_SPECIFIC_APPS
+#re:ET\sWEB_SPECIFIC_APPS
+# GPL WEB_SPECIFIC_APPS
+#re:GPL\sWEB_SPECIFIC_APPS
+# ET WORM
+#re:ET\sWORM
+# ET WEB_SERVER
+#re:ET\sWEB_SERVER
+# SSLBL: Malicious JA3 SSL-Client Fingerprint detected (Adware)
+1:906200038
+1:2028362
+1:2028371
+1:2027390

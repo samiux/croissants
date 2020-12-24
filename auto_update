@@ -1,0 +1,62 @@
+#!/bin/bash
+# Auto Update Script for Almond Croissants
+# Author  : Samiux (http://samiux.blogspot.com/)
+# License : GPLv3 (Open Source)
+
+cd /tmp/
+
+# clean up first
+if [ -d autoupdate ]
+then
+	sudo rm -R autoupdate*
+	sudo rm *.md5
+fi
+if [ -f autoupdate.tar.gz ]
+then
+	sudo rm -R autoupdate*
+	sudo rm *.md5
+fi
+
+# initialization
+if [ -f /etc/croissants/conf.d/autoupdate.tar.gz ]
+then
+	md5sum /etc/croissants/conf.d/autoupdate.tar.gz > /tmp/old.md5
+	CHKSUM_OLD=$(cat /tmp/old.md5 | head -n1 | sed -e 's/\s.*$//')
+else
+	CHKSUM_OLD=" "
+fi
+
+# do the update
+# changed to github
+wget https://github.com/samiux/update-croissants/raw/master/auto/croissants/autoupdate.tar.gz -O /tmp/autoupdate.tar.gz
+
+if [ -f /tmp/autoupdate.tar.gz ]
+then
+	md5sum /tmp/autoupdate.tar.gz > /tmp/new.md5
+	CHKSUM_NEW=$(cat /tmp/new.md5 | head -n1 | sed -e 's/\s.*$//')
+	if [[ "$CHKSUM_OLD" == "$CHKSUM_NEW" ]]
+	then
+		# clean up
+		cd /tmp/
+		sudo rm autoupdate.tar.gz*
+		echo "match, do nothing."
+	else
+		# update
+		cd /tmp/
+		sudo cp /tmp/autoupdate.tar.gz /etc/croissants/conf.d/
+		tar -xvzf autoupdate.tar.gz
+		cd autoupdate
+		chmod +x autoupdate
+		sudo ./autoupdate
+		cd ..
+		sudo rm -R autoupdate*
+	fi
+else
+	sudo rm /etc/croissants/conf.d/autoupdate.tar.gz
+	echo "no update is available."
+fi
+
+# clean up
+sudo rm /tmp/old.md5
+sudo rm /tmp/new.md5
+echo "Updated."

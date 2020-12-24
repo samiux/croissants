@@ -1,0 +1,85 @@
+# Author    : Samiux (https://samiux.github.io)
+# License   : GPLv3
+#
+# 1010000-1049999 Reserved for IDPS Use -- Put your IDPS rules in this range to avoid conflicts
+
+# reserved for 1010000-1010099
+# disallow ping from internet
+drop icmp $EXTERNAL_NET any -> $HOME_NET any (msg:"ICMP PING"; itype: 8; priority:1; classtype: network-scan; priority:1; sid:1010000; rev:1;)
+
+# Potential Ports Scan
+drop tcp $EXTERNAL_NET any -> $HOME_NET any (msg:"SCAN Potential Ports Scan)"; flow:to_server; flags:S,12; window: 1024; priority:1; classtype:attempted-recon; priority:1; sid:1010020; rev:1;)
+# general or -sS (SYN scan) as well as -sC (Kali Linux host only) (filtered)
+drop tcp $EXTERNAL_NET any -> $HOME_NET any (msg:"SCAN Potential Ports Scan (Kali host)"; flow:to_server; flags:S,12; window: 1024; priority:1; classtype:attempted-recon; sid:1010021; rev:1;)
+# -sF (FIN scan) (open|filtered)) | VM (open|filtered)
+drop tcp $EXTERNAL_NET any -> $HOME_NET any (msg:"SCAN Potential Ports Scan -sF (FIN scan)"; flow:to_server; flags:F,12; window: 1024; priority:1; classtype:attempted-recon; sid:1010022; rev:1;)
+# -sN (Null scan) (open|filtered) | VM (open|filtered)
+drop tcp $EXTERNAL_NET any -> $HOME_NET any (msg:"SCAN Potential Ports Scan -sN (Null scan)"; flow:to_server; flags:0,12; window: 1024; priority:1; classtype:attempted-recon; sid:1010023; rev:1;)
+# -sX (XMas scan) (open|filtered) | VM (open|filtered)
+drop tcp $EXTERNAL_NET any -> $HOME_NET any (msg:"SCAN Potential Ports Scan -sX (XMas scan)"; flow:to_server; flags:FPU,12; window: 1024; priority:1; classtype:attempted-recon; sid:1010024; rev:1;)
+# -sM (Maimon scan) (open|filtered) | VM (closed)
+drop tcp $EXTERNAL_NET any -> $HOME_NET any (msg:"SCAN Potential Ports Scan -sM (Maimon scan)"; flow:to_server; flags:FA,12; window: 1024; priority:1; classtype:attempted-recon; sid:1010025; rev:1;)
+# -sA & -sW (ACK & Window scan) (filtered) | VM (-sA unfiltered   -sW open)
+drop tcp $EXTERNAL_NET any -> $HOME_NET any (msg:"SCAN Potential Ports Scan -sA/-sW (ACK/Window scan)"; flow:to_server; flags:A,12; window: 1024; priority:1; classtype:attempted-recon; sid:1010026; rev:1;)
+
+# IP Reputation - Blacklisted Hosts
+reject ip $HOME_NET any -> any any (msg:"IP Reputation - Blacklisted"; iprep:any,blacklist,>,9; priority:1; sid:1010030; rev:1;)
+drop ip $EXTERNAL_NET any -> $HOME_NET any (msg:"TOR Exit Nodes - Blacklisted"; iprep:src,torexitnode,>,9; priority:1; sid:1010031; rev:1;)
+
+# malicious URL
+reject http any any -> any any (msg:"Ransomware BAD URL"; lua:ransomware_urls.lua; priority:1; sid:1010040; rev:1;)
+reject http any any -> any any (msg:"Malicious URL"; lua:malicious_urls.lua; flow:stateless; priority:1; sid:1010041; rev:1;)
+
+# self-signed-cert
+#reject tls any any -> any any (msg:"TLS Self Signed Certificate"; flow:established; lua:self-signed-cert.lua; tls.store; classtype:protocol-command-decode; sid:1010050; rev:1;)
+
+# BeEF Hooking
+reject http any any -> any any (msg:"BeEF Hooking (hook.js)"; flow: stateless; content: "GET"; http_method; content: "?BEEFHOOK="; nocase; http_raw_uri; priority:1; sid: 1010060; rev:1;)
+
+# reserved for 1010100-1010199
+# rules for file extraction
+# this rule drop all the file that matches the malware_md5/sha1/256 and clamav_md5
+# http
+reject http $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and extract ClamAV MD5"; filestore; filemd5:clamav_md5; classtype: suspicious-filename-detect; priority:1; sid:1010100; rev:1;)
+reject http $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and extract Malware MD5"; filestore; filemd5:malware_md5; classtype: suspicious-filename-detect; priority:1; sid:1010101; rev:1;)
+reject http $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and extract Malware SHA1"; filestore; filesha1:malware_sha1; classtype: suspicious-filename-detect; priority:1; sid:1010102; rev:1;)
+reject http $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and extract Malware SHA256"; filestore; filesha256:malware_sha256; classtype: suspicious-filename-detect; priority:1; sid:1010103; rev:1;)
+reject http $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and extract Linux Malware MD5"; filestore; filemd5:lmd_md5; classtype: suspicious-filename-detect; priority:1; sid:1010104; rev:1;)
+
+# http2
+reject http2 $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and extract ClamAV MD5"; filestore; filemd5:clamav_md5; classtype: suspicious-filename-detect; priority:1; sid:1010110; rev:1;)
+reject http2 $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and extract Malware MD5"; filestore; filemd5:malware_md5; classtype: suspicious-filename-detect; priority:1; sid:1010111; rev:1;)
+reject http2 $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and extract Malware SHA1"; filestore; filesha1:malware_sha1; classtype: suspicious-filename-detect; priority:1; sid:1010112; rev:1;)
+reject http2 $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and extract Malware SHA256"; filestore; filesha256:malware_sha256; classtype: suspicious-filename-detect; priority:1; sid:1010113; rev:1;)
+reject http2 $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and extract Linux Malware MD5"; filestore; filemd5:lmd_md5; classtype: suspicious-filename-detect; priority:1; sid:1010114; rev:1;)
+
+# smtp
+reject smtp $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and extract ClamAV MD5"; filestore; filemd5:clamav_md5; classtype: suspicious-filename-detect; priority:1; sid:1010120; rev:1;)
+reject smtp $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and extract Malware MD5"; filestore; filemd5:malware_md5; classtype: suspicious-filename-detect; priority:1; sid:1010121; rev:1;)
+reject smtp $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and extract Malware SHA1"; filestore; filesha1:malware_sha1; classtype: suspicious-filename-detect; priority:1; sid:1010122; rev:1;)
+reject smtp $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and extract Malware SHA256"; filestore; filesha256:malware_sha256; classtype: suspicious-filename-detect; priority:1; sid:1010123; rev:1;)
+reject smtp $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and extract Linux Malware MD5"; filestore; filemd5:lmd_md5; classtype: suspicious-filename-detect; priority:1; sid:1010124; rev:1;)
+
+# ftp
+#reject ftp $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and extract ClamAV MD5"; filestore; filemd5:clamav_md5; classtype: suspicious-filename-detect; priority:1; sid:1010130; rev:1;)
+#reject ftp $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and extract Malware MD5"; filestore; filemd5:malware_md5; classtype: suspicious-filename-detect; priority:1; sid:1010131; rev:1;)
+#reject ftp $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and extract Malware SHA1"; filestore; filesha1:malware_sha1; classtype: suspicious-filename-detect; priority:1; sid:1010132; rev:1;)
+#reject ftp $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and extract Malware SHA256"; filestore; filesha256:malware_sha256; classtype: suspicious-filename-detect; priority:1; sid:1010133; rev:1;)
+#reject ftp $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and extract Linux Malware MD5"; filestore; filemd5:lmd_md5; classtype: suspicious-filename-detect; priority:1; sid:1010134; rev:1;)
+
+# nfs
+reject nfs $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and extract ClamAV MD5"; filestore; filemd5:clamav_md5; classtype: suspicious-filename-detect; priority:1; sid:1010140; rev:1;)
+reject nfs $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and extract Malware MD5"; filestore; filemd5:malware_md5; classtype: suspicious-filename-detect; priority:1; sid:1010141; rev:1;)
+reject nfs $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and extract Malware SHA1"; filestore; filesha1:malware_sha1; classtype: suspicious-filename-detect; priority:1; sid:1010142; rev:1;)
+reject nfs $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and extract Malware SHA256"; filestore; filesha256:malware_sha256; classtype: suspicious-filename-detect; priority:1; sid:1010143; rev:1;)
+reject nfs $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and extract Linux Malware MD5"; filestore; filemd5:lmd_md5; classtype: suspicious-filename-detect; priority:1; sid:1010144; rev:1;)
+
+# smb
+reject smb $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and extract ClamAV MD5"; filestore; filemd5:clamav_md5; classtype: suspicious-filename-detect; priority:1; sid:1010150; rev:1;)
+reject smb $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and extract Malware MD5"; filestore; filemd5:malware_md5; classtype: suspicious-filename-detect; priority:1; sid:1010151; rev:1;)
+reject smb $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and extract Malware SHA1"; filestore; filesha1:malware_sha1; classtype: suspicious-filename-detect; priority:1; sid:1010152; rev:1;)
+reject smb $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and extract Malware SHA256"; filestore; filesha256:malware_sha256; classtype: suspicious-filename-detect; priority:1; sid:1010153; rev:1;)
+reject smb $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and extract Linux Malware MD5"; filestore; filemd5:lmd_md5; classtype: suspicious-filename-detect; priority:1; sid:1010154; rev:1;)
+
+# reserved for 1010200-1010299
+
