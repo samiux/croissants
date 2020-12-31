@@ -1588,7 +1588,7 @@ stream:
   reassembly:
     #memcap: 256mb
     memcap: 4096mb
-    depth: 2mb                  # reassemble 1mb into a stream
+    depth: 1mb                  # reassemble 1mb into a stream
     toserver-chunk-size: 2560
     toclient-chunk-size: 2560
     randomize-chunk-size: yes
