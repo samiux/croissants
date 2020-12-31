@@ -70,7 +70,7 @@ sudo apt -y autoremove
 # essential packages
 ####################
 sudo apt -y install net-tools glances git ethtool python3-pip clamav ifupdown fail2ban
-sudo apt -y install linux-tools-common linux-tools-generic cpufrequtils thermald fping netdata
+sudo apt -y install linux-tools-common linux-tools-generic fping netdata
 
 ################################
 # setup blacklist_md5 for clamav
