@@ -2911,6 +2911,10 @@ sudo set_timezone
 ##############
 sudo nsm_rules_update
 
+# disable irqbalance
+sudo systemctl disable irqbalance
+sudo systemctl stop irqbalance
+
 # clean up
 sudo rm /root/nsm_install
 sudo rm /root/ids_to_ips
