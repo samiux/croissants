@@ -31,7 +31,7 @@ reject http any any -> any any (msg:"Ransomware BAD URL"; lua:ransomware_urls.lu
 reject http any any -> any any (msg:"Malicious URL"; lua:malicious_urls.lua; flow:stateless; priority:1; sid:1010041; rev:1;)
 
 # self-signed-cert
-#reject tls any any -> any any (msg:"TLS Self Signed Certificate"; flow:established; lua:self-signed-cert.lua; tls.store; classtype:protocol-command-decode; sid:1010050; rev:1;)
+reject tls any any -> any any (msg:"TLS Self Signed Certificate"; flow:established; lua:self-signed-cert.lua; tls.store; classtype:protocol-command-decode; sid:1010050; rev:1;)
 
 # BeEF Hooking
 reject http any any -> any any (msg:"BeEF Hooking (hook.js)"; flow: stateless; content: "GET"; http_method; content: "?BEEFHOOK="; nocase; http_raw_uri; priority:1; sid: 1010060; rev:1;)
@@ -61,11 +61,11 @@ reject smtp $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and ex
 reject smtp $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and extract Linux Malware MD5"; filestore; filemd5:lmd_md5; classtype: suspicious-filename-detect; priority:1; sid:1010124; rev:1;)
 
 # ftp
-#reject ftp $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and extract ClamAV MD5"; filestore; filemd5:clamav_md5; classtype: suspicious-filename-detect; priority:1; sid:1010130; rev:1;)
-#reject ftp $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and extract Malware MD5"; filestore; filemd5:malware_md5; classtype: suspicious-filename-detect; priority:1; sid:1010131; rev:1;)
-#reject ftp $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and extract Malware SHA1"; filestore; filesha1:malware_sha1; classtype: suspicious-filename-detect; priority:1; sid:1010132; rev:1;)
-#reject ftp $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and extract Malware SHA256"; filestore; filesha256:malware_sha256; classtype: suspicious-filename-detect; priority:1; sid:1010133; rev:1;)
-#reject ftp $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and extract Linux Malware MD5"; filestore; filemd5:lmd_md5; classtype: suspicious-filename-detect; priority:1; sid:1010134; rev:1;)
+reject ftp-data $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and extract ClamAV MD5"; filestore; filemd5:clamav_md5; ftpdata_command:retr; classtype: suspicious-filename-detect; priority:1; sid:1010130; rev:1;)
+reject ftp-data $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and extract Malware MD5"; filestore; filemd5:malware_md5; ftpdata_command:retr; classtype: suspicious-filename-detect; priority:1; sid:1010131; rev:1;)
+reject ftp-data $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and extract Malware SHA1"; filestore; filesha1:malware_sha1; ftpdata_command:retr; classtype: suspicious-filename-detect; priority:1; sid:1010132; rev:1;)
+reject ftp-data $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and extract Malware SHA256"; filestore; filesha256:malware_sha256; ftpdata_command:retr; classtype: suspicious-filename-detect; priority:1; sid:1010133; rev:1;)
+reject ftp-data $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and extract Linux Malware MD5"; filestore; filemd5:lmd_md5; ftpdata_command:retr; classtype: suspicious-filename-detect; priority:1; sid:1010134; rev:1;)
 
 # nfs
 reject nfs $EXTERNAL_NET any -> $HOME_NET any (msg:"Malicious file match and extract ClamAV MD5"; filestore; filemd5:clamav_md5; classtype: suspicious-filename-detect; priority:1; sid:1010140; rev:1;)
