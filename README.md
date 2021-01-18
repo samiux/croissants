@@ -1,5 +1,5 @@
 # Croissants 牛角面包 - Intrusion Detection and Prevention System
-## DISCONTINUED
+## DISCONTINUED - Deprecated
 
 ## ifupdown as default
 
