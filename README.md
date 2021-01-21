@@ -1,5 +1,6 @@
 # Croissants 牛角面包 - Intrusion Detection and Prevention System
 ## DISCONTINUED - Deprecated
+For latest version, please visit [Croissants (Network Based)](https://github.com/samiux/idps) or [Croissants (Host Based)](https://github.com/samiux/idps-host)  
 
 ## ifupdown as default
 
